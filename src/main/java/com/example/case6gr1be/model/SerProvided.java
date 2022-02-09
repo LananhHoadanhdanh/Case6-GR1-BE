@@ -11,7 +11,6 @@ public class SerProvided {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private int status;
     private int category;
     @ManyToMany
     @JoinTable(name = "service_provided",
@@ -23,17 +22,8 @@ public class SerProvided {
 
     public SerProvided(String name, int status, int category, Collection<User> users) {
         this.name = name;
-        this.status = status;
         this.category = category;
         this.users = users;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
     }
 
     public int getCategory() {

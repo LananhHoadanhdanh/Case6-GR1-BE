@@ -21,4 +21,9 @@ public class SerProvidedImpl implements SerProvidedService {
         return Optional.empty();
     }
 
+    @Override
+    public void activeService(Long id, int idService) {
+        serProvidedRepository.activeService(id,idService);
+    }
+
 }
