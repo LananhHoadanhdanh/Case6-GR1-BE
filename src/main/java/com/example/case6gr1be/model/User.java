@@ -46,6 +46,7 @@ public class User {
     private int view;
     private int rentCount;
     private long price;
+    private boolean enabled = true;
 
     @ManyToOne
     @JoinColumn(name = "statusUserId")
@@ -75,6 +76,14 @@ public class User {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.roles = roles;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     public Long getId() {
