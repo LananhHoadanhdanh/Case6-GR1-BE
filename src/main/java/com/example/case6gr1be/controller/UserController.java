@@ -1,9 +1,6 @@
 package com.example.case6gr1be.controller;
 
-import com.example.case6gr1be.model.Image;
-import com.example.case6gr1be.model.JwtResponse;
-import com.example.case6gr1be.model.Role;
-import com.example.case6gr1be.model.User;
+import com.example.case6gr1be.model.*;
 import com.example.case6gr1be.service.ImageService;
 import com.example.case6gr1be.service.RoleService;
 import com.example.case6gr1be.service.UserService;
@@ -85,10 +82,9 @@ public class UserController {
             roles1.add(role1);
             user.setRoles(roles1);
         }
-        user.setAvatar("assets/img/users/ava_default.png");
+        user.setAvatar("assets/img/ava_default.png");
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setConfirmPassword(passwordEncoder.encode(user.getConfirmPassword()));
-
         userService.save(user);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
@@ -118,7 +114,7 @@ public class UserController {
     }
 
     @PutMapping("/users/{id}")
-    public ResponseEntity<User> updateUserProfile(@PathVariable Long id, User user) {
+    public ResponseEntity<User> updateUserProfile(@PathVariable Long id, @RequestBody User user) {
         Optional<User> userOptional = this.userService.findById(id);
         if (!userOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
