@@ -25,7 +25,7 @@ public class SerProvidedController {
     @PostMapping("/actService/{id}")
     public ResponseEntity<int[]> actService(@PathVariable Long id,int idService[]) {
         for (int i = 0; i < idService.length; i++) {
-            serProvinderService.a
+//            serProvinderService.a
         }
 
         return new ResponseEntity<>(idService, HttpStatus.OK);

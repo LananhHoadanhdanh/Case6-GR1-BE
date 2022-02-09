@@ -12,18 +12,13 @@ public class SerProvided {
     private Long id;
     private String name;
     private int category;
-    @ManyToMany
-    @JoinTable(name = "service_provided",
-            joinColumns = @JoinColumn(name = "service_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private Collection<User> users;
+
     public SerProvided() {
     }
 
     public SerProvided(String name, int status, int category, Collection<User> users) {
         this.name = name;
         this.category = category;
-        this.users = users;
     }
 
     public int getCategory() {
@@ -54,11 +49,5 @@ public class SerProvided {
         this.name = name;
     }
 
-    public Collection<User> getUsers() {
-        return users;
-    }
 
-    public void setUsers(Collection<User> users) {
-        this.users = users;
-    }
 }

@@ -7,5 +7,5 @@ import java.util.Optional;
 public interface SerProvidedService {
      Iterable<SerProvided> findAll();
     Optional<SerProvided> findById(Long id);
-    void activeService(Long id,int idService);
+//    void activeService(Long id,int idService);
 }
