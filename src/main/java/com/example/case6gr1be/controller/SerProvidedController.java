@@ -1,7 +1,7 @@
 package com.example.case6gr1be.controller;
 
-import com.example.case6gr1be.model.SerProvinder;
-import com.example.case6gr1be.service.SerProvinderService;
+import com.example.case6gr1be.model.SerProvided;
+import com.example.case6gr1be.service.SerProvidedService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @PropertySource("classpath:application.properties")
 @CrossOrigin("*")
-public class SerProvinderController {
+public class SerProvidedController {
     @Autowired
-    private SerProvinderService serProvinderService;
+    private SerProvidedService serProvinderService;
 
     @GetMapping("/SerProvinder")
-    public ResponseEntity<Iterable<SerProvinder>> findAll() {
+    public ResponseEntity<Iterable<SerProvided>> findAll() {
         return new ResponseEntity<>(serProvinderService.findAll(), HttpStatus.OK);
     }
 }

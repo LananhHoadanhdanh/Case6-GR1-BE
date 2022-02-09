@@ -6,20 +6,22 @@ import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
-public class SerProvinder {
+public class SerProvided {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String status;
+    private String category;
     @ManyToMany
-    @JoinTable(name = "service_provinder",
+    @JoinTable(name = "service_provided",
             joinColumns = @JoinColumn(name = "service_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Collection<User> projects;
-    public SerProvinder() {
+    public SerProvided() {
     }
 
-    public SerProvinder(String name) {
+    public SerProvided(String name) {
         this.name = name;
     }
 
