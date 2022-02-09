@@ -30,6 +30,7 @@ public class User {
     @Column(nullable = false)
     private String phoneNumber;
 
+    private String fullName;
     private String city;
     private String nationality;
     private Date birthday;
@@ -61,21 +62,46 @@ public class User {
     public User() {
     }
 
-    public User(String username, String password, String confirmPassword, String email, String phoneNumber) {
+    public User(String username, String password, String fullName, String confirmPassword, String email, String phoneNumber) {
         this.username = username;
         this.password = password;
+        this.fullName = fullName;
         this.confirmPassword = confirmPassword;
         this.email = email;
         this.phoneNumber = phoneNumber;
     }
 
-    public User(String username, String password, String confirmPassword, String email, String phoneNumber, Set<Role> roles) {
+    public User(String username, String password, String fullName, String confirmPassword, String email, String phoneNumber, Set<Role> roles) {
         this.username = username;
         this.password = password;
+        this.fullName = fullName;
         this.confirmPassword = confirmPassword;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.roles = roles;
+    }
+
+    public User(String fullName, String city, String nationality, Date birthday, String gender, String avatar, double height, double weight, String hobby, String description, String request, String facebook) {
+        this.fullName = fullName;
+        this.city = city;
+        this.nationality = nationality;
+        this.birthday = birthday;
+        this.gender = gender;
+        this.avatar = avatar;
+        this.height = height;
+        this.weight = weight;
+        this.hobby = hobby;
+        this.description = description;
+        this.request = request;
+        this.facebook = facebook;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public boolean isEnabled() {

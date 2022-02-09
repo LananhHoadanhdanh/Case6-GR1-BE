@@ -1,8 +1,7 @@
 package com.example.case6gr1be.controller;
 
-import com.example.case6gr1be.model.JwtResponse;
-import com.example.case6gr1be.model.Role;
-import com.example.case6gr1be.model.User;
+import com.example.case6gr1be.model.*;
+import com.example.case6gr1be.service.ImageService;
 import com.example.case6gr1be.service.RoleService;
 import com.example.case6gr1be.service.UserService;
 import com.example.case6gr1be.service.impl.JwtService;
@@ -47,8 +46,8 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-//    @Autowired
-//    private ImageService imageService;
+    @Autowired
+    private ImageService imageService;
 
 
 
@@ -83,10 +82,9 @@ public class UserController {
             roles1.add(role1);
             user.setRoles(roles1);
         }
-        user.setAvatar("assets/img/users/ava_default.png");
+        user.setAvatar("assets/img/ava_default.png");
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setConfirmPassword(passwordEncoder.encode(user.getConfirmPassword()));
-
         userService.save(user);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
@@ -139,9 +137,8 @@ public class UserController {
         return new ResponseEntity<>(userOptional.get(), HttpStatus.OK);
     }
 
-//
-//    @PostMapping("/loadImage")
-//    public ResponseEntity<Image> loadImage(@RequestBody Image image) {
-//        imageService.save(image);
-//        return new ResponseEntity<>(image, HttpStatus.OK);}
+    @PostMapping("/loadImage")
+    public ResponseEntity<Image> loadImage(@RequestBody Image image) {
+        imageService.save(image);
+        return new ResponseEntity<>(image, HttpStatus.OK);}
 }
