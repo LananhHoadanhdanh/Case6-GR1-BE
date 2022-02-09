@@ -10,11 +10,19 @@ public class Image {
     private Long id;
     private String link;
 
+    @ManyToOne
+    private User user;
+
     public Image() {
     }
 
     public Image(String link) {
         this.link = link;
+    }
+
+    public Image(String link, User user) {
+        this.link = link;
+        this.user = user;
     }
 
     public Long getId() {
@@ -31,5 +39,13 @@ public class Image {
 
     public void setLink(String link) {
         this.link = link;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
