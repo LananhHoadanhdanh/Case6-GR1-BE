@@ -129,6 +129,17 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
+    @PutMapping("/users/{id}/uploadPrice")
+    public ResponseEntity<User>userPriceUpdate(@PathVariable Long id, long price) {
+        Optional<User> userOptional = userService.findById(id);
+        User user = userOptional.get();
+        user.setPrice(price);
+        user.setId(id);
+        userService.save(user);
+        return new ResponseEntity<>(userOptional.get(), HttpStatus.OK);
+    }
+
+
 //    @PostMapping("/loadImage")
 //    public ResponseEntity<Image> loadImage(@RequestBody Image image) {
 //        imageService.save(image);
