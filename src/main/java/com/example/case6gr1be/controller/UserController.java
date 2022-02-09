@@ -114,7 +114,7 @@ public class UserController {
     }
 
     @PutMapping("/users/{id}")
-    public ResponseEntity<User> updateUserProfile(@PathVariable Long id, @RequestBody User user) {
+    public ResponseEntity<User> updateUserProfile(@PathVariable Long id, User user) {
         Optional<User> userOptional = this.userService.findById(id);
         if (!userOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -125,6 +125,16 @@ public class UserController {
         user.setRoles(userOptional.get().getRoles());
         userService.save(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @PutMapping("/users/{id}/uploadPrice")
+    public ResponseEntity<User>userPriceUpdate(@PathVariable Long id, long price) {
+        Optional<User> userOptional = userService.findById(id);
+        User user = userOptional.get();
+        user.setPrice(price);
+        user.setId(id);
+        userService.save(user);
+        return new ResponseEntity<>(userOptional.get(), HttpStatus.OK);
     }
 
     @PostMapping("/loadImage")
