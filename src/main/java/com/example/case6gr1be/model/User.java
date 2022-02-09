@@ -72,7 +72,17 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public User(String username, String password, String fullName, String confirmPassword, String email, String phoneNumber, Set<Role> roles) {
+    public User(String username, String password, String fullName, String confirmPassword, String email, String phoneNumber, StatusUser status) {
+        this.username = username;
+        this.password = password;
+        this.fullName = fullName;
+        this.confirmPassword = confirmPassword;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.status = status;
+    }
+
+    public User(String username, String password, String fullName, String confirmPassword, String email, String phoneNumber, Set<Role> roles, StatusUser status) {
         this.username = username;
         this.password = password;
         this.fullName = fullName;
@@ -80,6 +90,7 @@ public class User {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.roles = roles;
+        this.status = status;
     }
 
     public User(String fullName, String city, String nationality, Date birthday, String gender, String avatar, double height, double weight, String hobby, String description, String request, String facebook) {
