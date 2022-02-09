@@ -21,13 +21,6 @@ public class SerProvided {
     public SerProvided() {
     }
 
-    public SerProvided(String name, int status, int category, Collection<User> projects) {
-        this.name = name;
-        this.status = status;
-        this.category = category;
-        this.projects = projects;
-    }
-
     public int getStatus() {
         return status;
     }
