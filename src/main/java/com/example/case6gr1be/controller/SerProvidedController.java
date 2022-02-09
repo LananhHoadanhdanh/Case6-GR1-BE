@@ -17,7 +17,7 @@ public class SerProvidedController {
     @Autowired
     private SerProvidedService serProvinderService;
 
-    @GetMapping("/SerProvinder")
+    @GetMapping("/service")
     public ResponseEntity<Iterable<SerProvided>> findAll() {
         return new ResponseEntity<>(serProvinderService.findAll(), HttpStatus.OK);
     }
