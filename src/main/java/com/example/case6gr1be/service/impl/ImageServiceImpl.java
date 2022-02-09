@@ -4,9 +4,11 @@ import com.example.case6gr1be.model.Image;
 import com.example.case6gr1be.repository.ImageRepository;
 import com.example.case6gr1be.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class ImageServiceImpl implements ImageService {
     @Autowired
     private ImageRepository imageRepository;
