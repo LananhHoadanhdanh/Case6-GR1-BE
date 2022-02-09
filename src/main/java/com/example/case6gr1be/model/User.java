@@ -38,11 +38,7 @@ public class User {
     private double height;
     private double weight;
     private String hobby;
-
-    @Column(length = 1000)
     private String description;
-
-    @Column(length = 1000)
     private String request;
 
     private String facebook;
