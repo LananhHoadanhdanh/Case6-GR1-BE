@@ -17,8 +17,15 @@ public class SerProvided {
     @JoinTable(name = "service_provided",
             joinColumns = @JoinColumn(name = "service_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private Collection<User> projects;
+    private Collection<User> users;
     public SerProvided() {
+    }
+
+    public SerProvided(String name, int status, int category, Collection<User> users) {
+        this.name = name;
+        this.status = status;
+        this.category = category;
+        this.users = users;
     }
 
     public int getStatus() {
@@ -57,11 +64,11 @@ public class SerProvided {
         this.name = name;
     }
 
-    public Collection<User> getProjects() {
-        return projects;
+    public Collection<User> getUsers() {
+        return users;
     }
 
-    public void setProjects(Collection<User> projects) {
-        this.projects = projects;
+    public void setUsers(Collection<User> users) {
+        this.users = users;
     }
 }
