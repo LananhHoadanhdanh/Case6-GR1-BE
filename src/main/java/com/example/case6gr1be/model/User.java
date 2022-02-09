@@ -81,6 +81,21 @@ public class User {
         this.roles = roles;
     }
 
+    public User(String fullName, String city, String nationality, Date birthday, String gender, String avatar, double height, double weight, String hobby, String description, String request, String facebook) {
+        this.fullName = fullName;
+        this.city = city;
+        this.nationality = nationality;
+        this.birthday = birthday;
+        this.gender = gender;
+        this.avatar = avatar;
+        this.height = height;
+        this.weight = weight;
+        this.hobby = hobby;
+        this.description = description;
+        this.request = request;
+        this.facebook = facebook;
+    }
+
     public String getFullName() {
         return fullName;
     }
