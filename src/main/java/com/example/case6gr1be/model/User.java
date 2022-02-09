@@ -3,6 +3,7 @@ package com.example.case6gr1be.model;
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
 
@@ -43,7 +44,7 @@ public class User {
     private String request;
 
     private String facebook;
-    private Date startTime;
+    private LocalDateTime startTime;
     private int view;
     private int rentCount;
     private long price;
@@ -248,11 +249,11 @@ public class User {
         this.facebook = facebook;
     }
 
-    public Date getStartTime() {
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
 
