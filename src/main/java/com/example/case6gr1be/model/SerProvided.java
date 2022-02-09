@@ -11,14 +11,37 @@ public class SerProvided {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String status;
-    private String category;
+    private int status;
+    private int category;
     @ManyToMany
     @JoinTable(name = "service_provided",
             joinColumns = @JoinColumn(name = "service_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Collection<User> projects;
     public SerProvided() {
+    }
+
+    public SerProvided(String name, int status, int category, Collection<User> projects) {
+        this.name = name;
+        this.status = status;
+        this.category = category;
+        this.projects = projects;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public int getCategory() {
+        return category;
+    }
+
+    public void setCategory(int category) {
+        this.category = category;
     }
 
     public SerProvided(String name) {
