@@ -116,14 +116,24 @@ public class UserController {
     }
 
     @PutMapping("/users/{id}")
-    public ResponseEntity<User> updateUserProfile(@PathVariable Long id, User user) {
+    public ResponseEntity<User> updateUserProfile(@PathVariable Long id, @RequestBody User user) {
         Optional<User> userOptional = this.userService.findById(id);
         if (!userOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setConfirmPassword(passwordEncoder.encode(user.getConfirmPassword()));
         user.setId(userOptional.get().getId());
+        user.setRoles(userOptional.get().getRoles());
+        user.setPassword(userOptional.get().getPassword());
+        user.setConfirmPassword(userOptional.get().getConfirmPassword());
+        user.setUsername(userOptional.get().getUsername());
+        user.setEmail(userOptional.get().getEmail());
+        user.setPhoneNumber(userOptional.get().getPhoneNumber());
+        user.setStartTime(userOptional.get().getStartTime());
+        user.setView(userOptional.get().getView());
+        user.setRentCount(userOptional.get().getRentCount());
+        user.setPrice(userOptional.get().getPrice());
+        user.setEnabled(userOptional.get().isEnabled());
+        user.setStatus(userOptional.get().getStatus());
         user.setRoles(userOptional.get().getRoles());
         userService.save(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
