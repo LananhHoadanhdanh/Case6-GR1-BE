@@ -2,6 +2,8 @@ package com.example.case6gr1be.model;
 
 import org.springframework.security.core.GrantedAuthority;
 
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import java.util.Collection;
 
 public class JwtResponse {
@@ -10,12 +12,14 @@ public class JwtResponse {
     private String type = "Bearer";
     private String username;
     private Collection<? extends GrantedAuthority> roles;
+    StatusUser status;
 
-    public JwtResponse(String accessToken, Long id, String username, Collection<? extends GrantedAuthority> roles) {
+    public JwtResponse(String accessToken, Long id, String username, Collection<? extends GrantedAuthority> roles, StatusUser status) {
         this.token = accessToken;
         this.username = username;
         this.roles = roles;
         this.id = id;
+        this.status = status;
     }
 
     public Long getId() {
@@ -52,5 +56,13 @@ public class JwtResponse {
 
     public Collection<? extends GrantedAuthority> getRoles() {
         return roles;
+    }
+
+    public StatusUser getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusUser status) {
+        this.status = status;
     }
 }
