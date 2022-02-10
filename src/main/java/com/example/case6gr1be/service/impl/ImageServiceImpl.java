@@ -1,6 +1,7 @@
 package com.example.case6gr1be.service.impl;
 
 import com.example.case6gr1be.model.Image;
+import com.example.case6gr1be.model.User;
 import com.example.case6gr1be.repository.ImageRepository;
 import com.example.case6gr1be.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +27,10 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public void save(Image image) {
         imageRepository.save(image);
+    }
+
+    @Override
+    public Iterable<Image> findAllByUser(User user) {
+        return imageRepository.findAllByUser(user);
     }
 }
