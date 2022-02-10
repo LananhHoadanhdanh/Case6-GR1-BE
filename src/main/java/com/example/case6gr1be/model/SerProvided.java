@@ -6,20 +6,30 @@ import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
-public class SerProvinder {
+public class SerProvided {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @ManyToMany
-    @JoinTable(name = "service_provinder",
-            joinColumns = @JoinColumn(name = "service_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private Collection<User> projects;
-    public SerProvinder() {
+    private int category;
+
+    public SerProvided() {
     }
 
-    public SerProvinder(String name) {
+    public SerProvided(String name, int status, int category, Collection<User> users) {
+        this.name = name;
+        this.category = category;
+    }
+
+    public int getCategory() {
+        return category;
+    }
+
+    public void setCategory(int category) {
+        this.category = category;
+    }
+
+    public SerProvided(String name) {
         this.name = name;
     }
 
@@ -39,11 +49,5 @@ public class SerProvinder {
         this.name = name;
     }
 
-    public Collection<User> getProjects() {
-        return projects;
-    }
 
-    public void setProjects(Collection<User> projects) {
-        this.projects = projects;
-    }
 }
