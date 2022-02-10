@@ -3,6 +3,7 @@ package com.example.case6gr1be.controller;
 import com.example.case6gr1be.model.*;
 import com.example.case6gr1be.service.ImageService;
 import com.example.case6gr1be.service.RoleService;
+import com.example.case6gr1be.service.StatusUserService;
 import com.example.case6gr1be.service.UserService;
 import com.example.case6gr1be.service.impl.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -50,6 +52,8 @@ public class UserController {
     @Autowired
     private ImageService imageService;
 
+    @Autowired
+    private StatusUserService statusUserService;
 
 
     @GetMapping("/users")
@@ -148,6 +152,32 @@ public class UserController {
         user.setId(id);
         userService.save(user);
         return new ResponseEntity<>(userOptional.get(), HttpStatus.OK);
+    }
+
+    @PutMapping("/users/{id}/lockAccount")
+    public ResponseEntity<User>lockAccount(@PathVariable Long id) {
+        Optional<User> userOptional = userService.findById(id);
+        User user = userOptional.get();
+
+        Optional<StatusUser> statusUser = statusUserService.findById(3L);
+        StatusUser status = statusUser.get();
+
+        user.setStatus(status);
+        userService.save(user);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @PutMapping("/users/{id}/updateVipAccount")
+    public ResponseEntity<User>updateVipAccount(@PathVariable Long id) {
+        Optional<User> userOptional = userService.findById(id);
+        User user = userOptional.get();
+
+        Optional<StatusUser> statusUser = statusUserService.findById(4L);
+        StatusUser status = statusUser.get();
+
+        user.setStatus(status);
+        userService.save(user);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @PostMapping("/loadImage")
