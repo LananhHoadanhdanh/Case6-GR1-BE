@@ -154,4 +154,10 @@ public class UserController {
     public ResponseEntity<Image> loadImage(@RequestBody Image image) {
         imageService.save(image);
         return new ResponseEntity<>(image, HttpStatus.OK);}
+
+    @GetMapping("/12newServiceProvider")
+    public ResponseEntity<Iterable<User>> newServiceProvider(){
+        Iterable<User> newServiceProvider=userService.newServiceProvider();
+        return new ResponseEntity<>(newServiceProvider,HttpStatus.OK);
+    }
 }
