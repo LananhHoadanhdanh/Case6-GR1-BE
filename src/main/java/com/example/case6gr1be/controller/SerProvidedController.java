@@ -1,9 +1,13 @@
 package com.example.case6gr1be.controller;
 
+import com.example.case6gr1be.model.Role;
 import com.example.case6gr1be.model.SerProvided;
 import com.example.case6gr1be.model.ServiceProvided;
+import com.example.case6gr1be.model.User;
+import com.example.case6gr1be.service.RoleService;
 import com.example.case6gr1be.service.SerProvidedService;
 import com.example.case6gr1be.service.ServiceProvidedService;
+import com.example.case6gr1be.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Consumer;
 
 @RestController
@@ -23,6 +28,10 @@ public class SerProvidedController {
     private ServiceProvidedService serviceProvidedService;
     @Autowired
     private SerProvidedService serProvinderService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private RoleService roleService;
 
     @GetMapping("/service")
     public ResponseEntity<Iterable<SerProvided>> findAll() {
@@ -111,6 +120,15 @@ public class SerProvidedController {
             ServiceProvided serPro = idService[i];
             serviceProvidedService.add(serPro);
         }
+        long idU = idService[0].getIdUser();
+        User user = userService.findById(idU).get();
+        Set<Role> roleSet = user.getRoles();
+
+        Role role = roleService.findByName("ROLE_PROVIDER");
+
+        roleSet.add(role);
+        user.setRoles(roleSet);
+        userService.save(user);
     }
 
 }
