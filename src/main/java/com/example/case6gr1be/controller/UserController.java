@@ -180,8 +180,36 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
+    @PutMapping("/users/{id}/browseAccount")
+    public ResponseEntity<User>browseAccounts(@PathVariable Long id) {
+        Optional<User> userOptional = userService.findById(id);
+        User user = userOptional.get();
+
+        Optional<StatusUser> statusUser = statusUserService.findById(2L);
+        StatusUser status = statusUser.get();
+
+        user.setStatus(status);
+        userService.save(user);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @PutMapping("/users/{id}/pauseAccount")
+    public ResponseEntity<User>pauseAccounts(@PathVariable Long id) {
+        Optional<User> userOptional = userService.findById(id);
+        User user = userOptional.get();
+
+        Optional<StatusUser> statusUser = statusUserService.findById(5L);
+        StatusUser status = statusUser.get();
+
+        user.setStatus(status);
+        userService.save(user);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
     @PostMapping("/loadImage")
     public ResponseEntity<Image> loadImage(@RequestBody Image image) {
         imageService.save(image);
         return new ResponseEntity<>(image, HttpStatus.OK);}
+
+
 }
