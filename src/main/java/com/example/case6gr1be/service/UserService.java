@@ -24,5 +24,12 @@ public interface UserService extends UserDetailsService {
     boolean isRegister(User user);
 
     boolean isCorrectConfirmPassword(User user);
+
     Iterable<User> newServiceProvider();
+
+    Iterable<User> showRegisterUsers();
+    Iterable<User> showActiveUsers();
+    Iterable<User> showLockUsers();
+    Iterable<User> showVipUsers();
+    Iterable<User> showPauseUsers();
 }

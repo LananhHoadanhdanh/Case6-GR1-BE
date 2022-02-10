@@ -122,4 +122,30 @@ public class UserServiceImpl implements UserService {
     public Iterable<User> newServiceProvider() {
         return userRepository.newServiceProvider();
     }
+
+    @Override
+    public Iterable<User> showRegisterUsers() {
+        return userRepository.getUsersByStatus(1L);
+    }
+
+    @Override
+    public Iterable<User> showActiveUsers() {
+        return userRepository.getUsersByStatus(2L);
+    }
+
+    @Override
+    public Iterable<User> showLockUsers() {
+        return userRepository.getUsersByStatus(3L);
+    }
+
+    @Override
+    public Iterable<User> showVipUsers() {
+        return userRepository.getUsersByStatus(4L);
+    }
+
+    @Override
+    public Iterable<User> showPauseUsers() {
+        return userRepository.getUsersByStatus(5L);
+    }
+
 }
