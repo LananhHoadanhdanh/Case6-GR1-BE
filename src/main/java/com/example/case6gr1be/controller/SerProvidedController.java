@@ -16,7 +16,7 @@ import java.util.Optional;
 import java.util.function.Consumer;
 
 @RestController
-@PropertySource("classpath:application.properties")
+//@PropertySource("classpath:application.properties")
 @CrossOrigin("*")
 public class SerProvidedController {
     @Autowired
@@ -27,6 +27,36 @@ public class SerProvidedController {
     @GetMapping("/service")
     public ResponseEntity<Iterable<SerProvided>> findAll() {
         return new ResponseEntity<>(serProvinderService.findAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("/serviceFree")
+    public ResponseEntity<ArrayList<SerProvided>> findAllFree() {
+        Iterable<SerProvided> serProvideds = serProvinderService.findAll();
+        ArrayList<SerProvided> serviceFree = new ArrayList<>();
+        serProvideds.forEach(new Consumer<SerProvided>() {
+            @Override
+            public void accept(SerProvided ser) {
+                if (ser.getId() < 4) {
+                    serviceFree.add(ser);
+                }
+            }
+        });
+        return new ResponseEntity<>(serviceFree, HttpStatus.OK);
+    }
+
+    @GetMapping("/serviceExtend")
+    public ResponseEntity<ArrayList<SerProvided>> findAllExtend() {
+        Iterable<SerProvided> serProvideds = serProvinderService.findAll();
+        ArrayList<SerProvided> serviceExtend = new ArrayList<>();
+        serProvideds.forEach(new Consumer<SerProvided>() {
+            @Override
+            public void accept(SerProvided ser) {
+                if (ser.getId() < 8&& ser.getId()>3) {
+                    serviceExtend.add(ser);
+                }
+            }
+        });
+        return new ResponseEntity<>(serviceExtend, HttpStatus.OK);
     }
 
     @GetMapping("/servicePro")
@@ -51,7 +81,7 @@ public class SerProvidedController {
                 serviceProvided.forEach(new Consumer<ServiceProvided>() {
                     @Override
                     public void accept(ServiceProvided serPro) {
-                        if (ser.getId()==serPro.getIdService()){
+                        if (ser.getId() == serPro.getIdService()) {
                             name.add(ser.getName());
                         }
                     }
