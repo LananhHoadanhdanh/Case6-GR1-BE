@@ -16,7 +16,7 @@ import java.util.Optional;
 import java.util.function.Consumer;
 
 @RestController
-//@PropertySource("classpath:application.properties")
+@PropertySource("classpath:application.properties")
 @CrossOrigin("*")
 public class SerProvidedController {
     @Autowired
@@ -36,7 +36,7 @@ public class SerProvidedController {
         serProvideds.forEach(new Consumer<SerProvided>() {
             @Override
             public void accept(SerProvided ser) {
-                if (ser.getId() < 4) {
+                if (ser.getCategory()== 1) {
                     serviceFree.add(ser);
                 }
             }
@@ -51,7 +51,21 @@ public class SerProvidedController {
         serProvideds.forEach(new Consumer<SerProvided>() {
             @Override
             public void accept(SerProvided ser) {
-                if (ser.getId() < 8&& ser.getId()>3) {
+                if (ser.getCategory()==2) {
+                    serviceExtend.add(ser);
+                }
+            }
+        });
+        return new ResponseEntity<>(serviceExtend, HttpStatus.OK);
+    }
+    @GetMapping("/serviceMinTime")
+    public ResponseEntity<ArrayList<SerProvided>> SerMinTime() {
+        Iterable<SerProvided> serProvideds = serProvinderService.findAll();
+        ArrayList<SerProvided> serviceExtend = new ArrayList<>();
+        serProvideds.forEach(new Consumer<SerProvided>() {
+            @Override
+            public void accept(SerProvided ser) {
+                if (ser.getCategory() ==0) {
                     serviceExtend.add(ser);
                 }
             }
@@ -91,10 +105,10 @@ public class SerProvidedController {
         return name;
     }
 
-    @PostMapping("/actService/{id}")
-    public void actService(@PathVariable Long id, Long idService[]) {
+    @PostMapping("/actService")
+    public void actService(@RequestBody ServiceProvided idService[]) {
         for (int i = 0; i < idService.length; i++) {
-            ServiceProvided serPro = new ServiceProvided(idService[i], id);
+            ServiceProvided serPro = idService[i];
             serviceProvidedService.add(serPro);
         }
     }
