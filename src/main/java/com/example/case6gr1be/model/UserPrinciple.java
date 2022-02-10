@@ -4,6 +4,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -60,7 +62,6 @@ public class UserPrinciple implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
     }
-
 
     @Override
     public boolean isAccountNonExpired() {

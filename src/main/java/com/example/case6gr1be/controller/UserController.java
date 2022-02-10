@@ -3,6 +3,7 @@ package com.example.case6gr1be.controller;
 import com.example.case6gr1be.model.*;
 import com.example.case6gr1be.service.ImageService;
 import com.example.case6gr1be.service.RoleService;
+import com.example.case6gr1be.service.StatusUserService;
 import com.example.case6gr1be.service.UserService;
 import com.example.case6gr1be.service.impl.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,8 @@ public class UserController {
     @Autowired
     private ImageService imageService;
 
+    @Autowired
+    private StatusUserService statusUserService;
 
 
     @GetMapping("/users")
@@ -101,7 +104,8 @@ public class UserController {
         String jwt = jwtService.generateTokenLogin(authentication);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         User currentUser = userService.findByUsername(user.getUsername());
-        return ResponseEntity.ok(new JwtResponse(jwt, currentUser.getId(), userDetails.getUsername(), userDetails.getAuthorities()));
+        JwtResponse jwtResponse = new JwtResponse(jwt, currentUser.getId(), userDetails.getUsername(), userDetails.getAuthorities(), currentUser.getStatus());
+        return ResponseEntity.ok(jwtResponse);
     }
 
     @GetMapping("/hello")
@@ -149,8 +153,66 @@ public class UserController {
         return new ResponseEntity<>(userOptional.get(), HttpStatus.OK);
     }
 
+    @PutMapping("/users/{id}/lockAccount")
+    public ResponseEntity<User>lockAccount(@PathVariable Long id) {
+        Optional<User> userOptional = userService.findById(id);
+        User user = userOptional.get();
+
+        Optional<StatusUser> statusUser = statusUserService.findById(3L);
+        StatusUser status = statusUser.get();
+
+        user.setStatus(status);
+        userService.save(user);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @PutMapping("/users/{id}/updateVipAccount")
+    public ResponseEntity<User>updateVipAccount(@PathVariable Long id) {
+        Optional<User> userOptional = userService.findById(id);
+        User user = userOptional.get();
+
+        Optional<StatusUser> statusUser = statusUserService.findById(4L);
+        StatusUser status = statusUser.get();
+
+        user.setStatus(status);
+        userService.save(user);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @PutMapping("/users/{id}/browseAccount")
+    public ResponseEntity<User>browseAccounts(@PathVariable Long id) {
+        Optional<User> userOptional = userService.findById(id);
+        User user = userOptional.get();
+
+        Optional<StatusUser> statusUser = statusUserService.findById(2L);
+        StatusUser status = statusUser.get();
+
+        user.setStatus(status);
+        userService.save(user);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @PutMapping("/users/{id}/pauseAccount")
+    public ResponseEntity<User>pauseAccounts(@PathVariable Long id) {
+        Optional<User> userOptional = userService.findById(id);
+        User user = userOptional.get();
+
+        Optional<StatusUser> statusUser = statusUserService.findById(5L);
+        StatusUser status = statusUser.get();
+
+        user.setStatus(status);
+        userService.save(user);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
     @PostMapping("/loadImage")
     public ResponseEntity<Image> loadImage(@RequestBody Image image) {
         imageService.save(image);
         return new ResponseEntity<>(image, HttpStatus.OK);}
+
+    @GetMapping("/12newServiceProvider")
+    public ResponseEntity<Iterable<User>> newServiceProvider(){
+        Iterable<User> newServiceProvider=userService.newServiceProvider();
+        return new ResponseEntity<>(newServiceProvider,HttpStatus.OK);
+    }
 }
