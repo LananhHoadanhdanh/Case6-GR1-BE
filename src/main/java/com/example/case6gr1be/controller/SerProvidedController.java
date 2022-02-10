@@ -58,6 +58,20 @@ public class SerProvidedController {
         });
         return new ResponseEntity<>(serviceExtend, HttpStatus.OK);
     }
+    @GetMapping("/serviceMinTime")
+    public ResponseEntity<ArrayList<SerProvided>> SerMinTime() {
+        Iterable<SerProvided> serProvideds = serProvinderService.findAll();
+        ArrayList<SerProvided> serviceExtend = new ArrayList<>();
+        serProvideds.forEach(new Consumer<SerProvided>() {
+            @Override
+            public void accept(SerProvided ser) {
+                if (ser.getId() < 8&& ser.getId()>3) {
+                    serviceExtend.add(ser);
+                }
+            }
+        });
+        return new ResponseEntity<>(serviceExtend, HttpStatus.OK);
+    }
 
     @GetMapping("/servicePro")
     public ResponseEntity<Iterable<ServiceProvided>> findAllService() {
