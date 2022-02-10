@@ -117,13 +117,15 @@ public class SerProvidedController {
         return name;
     }
 
-    @DeleteMapping("/deleteService/{id}")
-    public void delete(@PathVariable Long id) {
+    @DeleteMapping("/deleteService")
+    public void delete(@RequestBody ServiceProvided servicePro[]) {
         serviceProvidedService.findAll().forEach(new Consumer<ServiceProvided>() {
             @Override
             public void accept(ServiceProvided serviceProvided) {
-                if (serviceProvided.getIdUser() == (id)) {
-                    serviceProvidedService.delete(serviceProvided);
+                for (int i = 0; i < servicePro.length; i++) {
+                    if (serviceProvided.getIdUser() == servicePro[i].getIdUser()&&serviceProvided.getIdService()==servicePro[i].getIdService()) {
+                        serviceProvidedService.delete(serviceProvided);
+                    }
                 }
             }
         });
