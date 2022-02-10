@@ -117,4 +117,9 @@ public class UserServiceImpl implements UserService {
         }
         return isCorrentConfirmPassword;
     }
+
+    @Override
+    public Iterable<User> newServiceProvider() {
+        return userRepository.newServiceProvider();
+    }
 }

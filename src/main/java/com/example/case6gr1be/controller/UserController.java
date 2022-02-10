@@ -21,7 +21,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -211,5 +210,9 @@ public class UserController {
         imageService.save(image);
         return new ResponseEntity<>(image, HttpStatus.OK);}
 
-
+    @GetMapping("/12newServiceProvider")
+    public ResponseEntity<Iterable<User>> newServiceProvider(){
+        Iterable<User> newServiceProvider=userService.newServiceProvider();
+        return new ResponseEntity<>(newServiceProvider,HttpStatus.OK);
+    }
 }
