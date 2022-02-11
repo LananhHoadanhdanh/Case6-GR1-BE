@@ -94,7 +94,6 @@ public class SerProvidedController {
     }
 
 
-
     @GetMapping("/serviceName/{id}")
     public ArrayList<String> serName(@PathVariable Long id, Long idService[]) {
         ArrayList<String> name = new ArrayList<>();
@@ -117,15 +116,13 @@ public class SerProvidedController {
         return name;
     }
 
-    @DeleteMapping("/deleteService")
-    public void delete(@RequestBody ServiceProvided servicePro[]) {
+    @DeleteMapping("/deleteService/{idU}")
+    public void delete(@PathVariable Long idU) {
         serviceProvidedService.findAll().forEach(new Consumer<ServiceProvided>() {
             @Override
             public void accept(ServiceProvided serviceProvided) {
-                for (int i = 0; i < servicePro.length; i++) {
-                    if (serviceProvided.getIdUser() == servicePro[i].getIdUser()&&serviceProvided.getIdService()==servicePro[i].getIdService()) {
-                        serviceProvidedService.delete(serviceProvided);
-                    }
+                if (serviceProvided.getIdUser() == idU ) {
+                    serviceProvidedService.delete(serviceProvided);
                 }
             }
         });
