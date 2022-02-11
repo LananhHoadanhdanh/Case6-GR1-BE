@@ -144,7 +144,7 @@ public class UserServiceImpl implements UserService {
 
         ArrayList<Long> serviceIdList = (ArrayList<Long>) userRepository.get3Service(id);
         for (int i = 0; i < serviceIdList.size(); i++) {
-            Long id1 = (Long) serviceIdList.get(i);
+            Long id1 = serviceIdList.get(i);
             SerProvided serProvided = serProvidedService.findById(id1).get();
             serProvideds.add(serProvided);
         }
