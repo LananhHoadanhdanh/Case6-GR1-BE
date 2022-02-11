@@ -1,9 +1,11 @@
 package com.example.case6gr1be.service;
 
+import com.example.case6gr1be.model.SerProvided;
 import com.example.case6gr1be.model.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 public interface UserService extends UserDetailsService {
@@ -29,5 +31,7 @@ public interface UserService extends UserDetailsService {
 
     Iterable<User> getUsersByStatus(Long id);
 
-    Iterable<User> getUserByView();
+    Iterable<User> get6UserByView();
+
+    ArrayList<SerProvided> get3Service(Long id);
 }

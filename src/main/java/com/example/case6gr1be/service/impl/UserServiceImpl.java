@@ -1,8 +1,10 @@
 package com.example.case6gr1be.service.impl;
 
+import com.example.case6gr1be.model.SerProvided;
 import com.example.case6gr1be.model.User;
 import com.example.case6gr1be.model.UserPrinciple;
 import com.example.case6gr1be.repository.UserRepository;
+import com.example.case6gr1be.service.SerProvidedService;
 import com.example.case6gr1be.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,12 +13,15 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private SerProvidedService serProvidedService;
 
     @Override
     @Transactional
@@ -129,7 +134,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Iterable<User> getUserByView() {
-        return userRepository.getUserByView();
+    public Iterable<User> get6UserByView() {
+        return userRepository.get6UserByView();
+    }
+
+    @Override
+    public ArrayList<SerProvided> get3Service(Long id) {
+        ArrayList<SerProvided> serProvideds = new ArrayList<>();
+
+        ArrayList<Long> serviceIdList = (ArrayList<Long>) userRepository.get3Service(id);
+        for (int i = 0; i < serviceIdList.size(); i++) {
+            Long id1 = (Long) serviceIdList.get(i);
+            SerProvided serProvided = serProvidedService.findById(id1).get();
+            serProvideds.add(serProvided);
+        }
+        return serProvideds;
     }
 }

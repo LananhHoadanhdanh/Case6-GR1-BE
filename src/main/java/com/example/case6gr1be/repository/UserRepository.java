@@ -15,6 +15,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("select u from User u where u.status.id = :id")
     Iterable<User> getUsersByStatus(@Param("id") Long id);
-    @Query(value="select * from user_table order by view desc limit 6", nativeQuery = true)
-    Iterable<User> getUserByView();
+
+    @Query (value = "select * from user_table where user_table.id in (select user_id from (select user_id from user_role\n" +
+            "group by user_id having count(user_id) >= 2) as dem_role) order by view desc limit 6 ",nativeQuery = true)
+    Iterable<User> get6UserByView();
+
+    @Query(value = "select id_service from (select id_service from service_provided where id_user = :id) as dich_vu_theo_user order by rand() limit 3;", nativeQuery = true)
+    Iterable<Long> get3Service(@Param("id") Long id);
 }
