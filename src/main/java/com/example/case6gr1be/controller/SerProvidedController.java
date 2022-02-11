@@ -1,9 +1,13 @@
 package com.example.case6gr1be.controller;
 
+import com.example.case6gr1be.model.Role;
 import com.example.case6gr1be.model.SerProvided;
 import com.example.case6gr1be.model.ServiceProvided;
+import com.example.case6gr1be.model.User;
+import com.example.case6gr1be.service.RoleService;
 import com.example.case6gr1be.service.SerProvidedService;
 import com.example.case6gr1be.service.ServiceProvidedService;
+import com.example.case6gr1be.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
@@ -13,16 +17,21 @@ import org.springframework.web.bind.annotation.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Consumer;
 
 @RestController
-//@PropertySource("classpath:application.properties")
+@PropertySource("classpath:application.properties")
 @CrossOrigin("*")
 public class SerProvidedController {
     @Autowired
     private ServiceProvidedService serviceProvidedService;
     @Autowired
     private SerProvidedService serProvinderService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private RoleService roleService;
 
     @GetMapping("/service")
     public ResponseEntity<Iterable<SerProvided>> findAll() {
@@ -36,7 +45,7 @@ public class SerProvidedController {
         serProvideds.forEach(new Consumer<SerProvided>() {
             @Override
             public void accept(SerProvided ser) {
-                if (ser.getId() < 4) {
+                if (ser.getCategory()== 1) {
                     serviceFree.add(ser);
                 }
             }
@@ -51,7 +60,21 @@ public class SerProvidedController {
         serProvideds.forEach(new Consumer<SerProvided>() {
             @Override
             public void accept(SerProvided ser) {
-                if (ser.getId() < 8&& ser.getId()>3) {
+                if (ser.getCategory()==2) {
+                    serviceExtend.add(ser);
+                }
+            }
+        });
+        return new ResponseEntity<>(serviceExtend, HttpStatus.OK);
+    }
+    @GetMapping("/serviceMinTime")
+    public ResponseEntity<ArrayList<SerProvided>> SerMinTime() {
+        Iterable<SerProvided> serProvideds = serProvinderService.findAll();
+        ArrayList<SerProvided> serviceExtend = new ArrayList<>();
+        serProvideds.forEach(new Consumer<SerProvided>() {
+            @Override
+            public void accept(SerProvided ser) {
+                if (ser.getCategory() ==0) {
                     serviceExtend.add(ser);
                 }
             }
@@ -91,12 +114,21 @@ public class SerProvidedController {
         return name;
     }
 
-    @PostMapping("/actService/{id}")
-    public void actService(@PathVariable Long id, Long idService[]) {
+    @PostMapping("/actService")
+    public void actService(@RequestBody ServiceProvided idService[]) {
         for (int i = 0; i < idService.length; i++) {
-            ServiceProvided serPro = new ServiceProvided(idService[i], id);
+            ServiceProvided serPro = idService[i];
             serviceProvidedService.add(serPro);
         }
+        long idU = idService[0].getIdUser();
+        User user = userService.findById(idU).get();
+        Set<Role> roleSet = user.getRoles();
+
+        Role role = roleService.findByName("ROLE_PROVIDER");
+
+        roleSet.add(role);
+        user.setRoles(roleSet);
+        userService.save(user);
     }
 
 }

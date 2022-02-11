@@ -122,4 +122,9 @@ public class UserServiceImpl implements UserService {
     public Iterable<User> newServiceProvider() {
         return userRepository.newServiceProvider();
     }
+
+    @Override
+    public Iterable<User> getUsersByStatus(Long id) {
+        return userRepository.getUsersByStatus(id);
+    }
 }
