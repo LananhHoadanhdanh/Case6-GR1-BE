@@ -27,9 +27,5 @@ public interface UserService extends UserDetailsService {
 
     Iterable<User> newServiceProvider();
 
-    Iterable<User> showRegisterUsers();
-    Iterable<User> showActiveUsers();
-    Iterable<User> showLockUsers();
-    Iterable<User> showVipUsers();
-    Iterable<User> showPauseUsers();
+    Iterable<User> getUsersByStatus(Long id);
 }

@@ -61,6 +61,12 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
+    @GetMapping("/usersByStatus")
+    public ResponseEntity<Iterable<User>> getAllUserByStatus(Long statusId) {
+        Iterable<User> users = userService.getUsersByStatus(statusId);
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
     @PostMapping("/register")
     public ResponseEntity<User> createUser(@RequestBody User user, BindingResult bindingResult) {
         if (bindingResult.hasFieldErrors()) {
