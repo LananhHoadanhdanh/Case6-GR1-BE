@@ -231,4 +231,10 @@ public class UserController {
         Iterable<Image> images=imageService.findAllImageByUserId(id);
         return new ResponseEntity<>(images,HttpStatus.OK);
     }
+
+    @GetMapping("/usersByView")
+    public ResponseEntity<Iterable<User>> getAllUserByView() {
+        Iterable<User> users = userService.getUserByView();
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
 }

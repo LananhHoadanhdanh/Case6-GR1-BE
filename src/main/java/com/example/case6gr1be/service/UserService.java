@@ -28,4 +28,6 @@ public interface UserService extends UserDetailsService {
     Iterable<User> newServiceProvider();
 
     Iterable<User> getUsersByStatus(Long id);
+
+    Iterable<User> getUserByView();
 }
