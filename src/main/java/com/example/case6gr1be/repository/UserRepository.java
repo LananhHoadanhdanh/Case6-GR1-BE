@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigInteger;
+
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
@@ -21,5 +23,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Iterable<User> get6UserByView();
 
     @Query(value = "select id_service from (select id_service from service_provided where id_user = :id) as dich_vu_theo_user order by rand() limit 3;", nativeQuery = true)
-    Iterable<Long> get3Service(@Param("id") Long id);
+    Iterable<BigInteger> get3Service(@Param("id") Long id);
 }
