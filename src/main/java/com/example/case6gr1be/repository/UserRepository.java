@@ -12,9 +12,15 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findByUsername(String username);
     @Query(value = "select * from user_table where user_table.id in (select user_id from (select user_id from user_role\n" +
             "                                                                      group by user_id\n" +
-            "                                                                      having count(user_id) >= 2) as dem_role) order by id desc limit 12", nativeQuery = true)
+            "                                                                      having count(user_id) >= 2) as dem_role) " +
+            "and (status_user_id = 4 or status_user_id = 2) order by id desc limit 12", nativeQuery = true)
     Iterable<User> newServiceProvider();
 
     @Query("select u from User u where u.status.id = :id")
     Iterable<User> getUsersByStatus(@Param("id") Long id);
+    @Query ( value = "select * from user_table where user_table.id in (select user_id\n" +
+            "from (select user_id\n" +
+            "from user_role  group by user_id\n" +
+            "having count(user_id) >= 2) as dem_role) and (status_user_id = 4 or status_user_id = 2)  limit 6 ",nativeQuery = true)
+    Iterable<User> find6UserVIP();
 }

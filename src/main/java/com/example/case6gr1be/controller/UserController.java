@@ -231,4 +231,9 @@ public class UserController {
         Iterable<Image> images=imageService.findAllImageByUserId(id);
         return new ResponseEntity<>(images,HttpStatus.OK);
     }
+    @GetMapping("/list6UserVip")
+    public ResponseEntity<Iterable<User>> list6UserVip(){
+        Iterable<User> users=userService.find6UserVIP();
+        return new ResponseEntity<>(users,HttpStatus.OK);
+    }
 }
