@@ -221,4 +221,14 @@ public class UserController {
         Iterable<User> newServiceProvider=userService.newServiceProvider();
         return new ResponseEntity<>(newServiceProvider,HttpStatus.OK);
     }
+//    @GetMapping("/findAllImageByUser/{id}")
+//    public ResponseEntity<Iterable<Image>> findAllImageByUser(@PathVariable Long id){
+//        Iterable<Image> images=imageService.findAllByUser(userService.findById(id).get());
+//        return new ResponseEntity<>(images,HttpStatus.OK);
+//    }
+    @GetMapping("/findAllImageByUser/{id}")
+    public ResponseEntity<Iterable<Image>> findAllImageByUser(@PathVariable Long id){
+        Iterable<Image> images=imageService.findAllImageByUserId(id);
+        return new ResponseEntity<>(images,HttpStatus.OK);
+    }
 }

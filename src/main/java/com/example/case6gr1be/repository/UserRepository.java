@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByUsername(String username);
-    @Query(value = "select  * from user_table order by id desc limit 12",nativeQuery = true)
+    @Query(value = "select  * from user_table order by id desc limit 12", nativeQuery = true)
     Iterable<User> newServiceProvider();
 
     @Query("select u from User u where u.status.id = :id")
