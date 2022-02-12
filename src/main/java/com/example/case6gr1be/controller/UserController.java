@@ -21,6 +21,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -231,6 +232,19 @@ public class UserController {
         Iterable<Image> images=imageService.findAllImageByUserId(id);
         return new ResponseEntity<>(images,HttpStatus.OK);
     }
+
+    @GetMapping("/usersByView")
+    public ResponseEntity<Iterable<User>> getAllUserByView() {
+        Iterable<User> users = userService.get6UserByView();
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    @GetMapping("/serProvidedByUser")
+    public ResponseEntity<ArrayList<SerProvided>> get3SerProviderRandom(Long userId) {
+        ArrayList<SerProvided> serProvideds = userService.get3Service(userId);
+        return new ResponseEntity<>(serProvideds, HttpStatus.OK);
+    }
+
     @GetMapping("/list6UserVip")
     public ResponseEntity<Iterable<User>> list6UserVip(){
         Iterable<User> users=userService.find6UserVIP();
