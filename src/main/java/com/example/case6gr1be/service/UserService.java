@@ -2,6 +2,7 @@ package com.example.case6gr1be.service;
 
 import com.example.case6gr1be.model.SerProvided;
 import com.example.case6gr1be.model.User;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -36,4 +37,5 @@ public interface UserService extends UserDetailsService {
     Iterable<User> get6UserByView();
 
     ArrayList<SerProvided> get3Service(Long id);
+    Iterable<User> list12UserSuitableForGender( String gender);
 }

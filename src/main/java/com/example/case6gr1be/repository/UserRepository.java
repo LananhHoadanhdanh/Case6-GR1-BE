@@ -24,7 +24,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query ( value = "select * from user_table where user_table.id in (select user_id\n" +
             "from (select user_id\n" +
             "from user_role  group by user_id\n" +
-            "having count(user_id) >= 2) as dem_role) and (status_user_id = 4 or status_user_id = 2)  limit 6 ",nativeQuery = true)
+            "having count(user_id) >= 2) as dem_role) and (status_user_id = 4)  limit 6 ",nativeQuery = true)
     Iterable<User> find6UserVIP();
 
     @Query (value = "select * from user_table where user_table.id in (select user_id from (select user_id from user_role\n" +
@@ -33,4 +33,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query(value = "select id_service from (select id_service from service_provided where id_user = :id) as dich_vu_theo_user order by rand() limit 3;", nativeQuery = true)
     Iterable<BigInteger> get3Service(@Param("id") Long id);
+
+    @Query(value = "select * from user_table where user_table.id in (select user_id\n" +
+            "from (select user_id\n" +
+            "from user_role  group by user_id\n" +
+            "having count(user_id) >= 2) as dem_role) and (status_user_id = 4 or status_user_id = 2) and user_table.gender like :gender limit 12",nativeQuery = true)
+    Iterable<User> list12UserSuitableForGender(@Param("gender") String gender);
+
 }
