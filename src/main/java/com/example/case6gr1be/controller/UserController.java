@@ -61,6 +61,12 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
+    @GetMapping("/usersByStatus")
+    public ResponseEntity<Iterable<User>> getAllUserByStatus(Long statusId) {
+        Iterable<User> users = userService.getUsersByStatus(statusId);
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
     @PostMapping("/register")
     public ResponseEntity<User> createUser(@RequestBody User user, BindingResult bindingResult) {
         if (bindingResult.hasFieldErrors()) {
@@ -214,5 +220,15 @@ public class UserController {
     public ResponseEntity<Iterable<User>> newServiceProvider(){
         Iterable<User> newServiceProvider=userService.newServiceProvider();
         return new ResponseEntity<>(newServiceProvider,HttpStatus.OK);
+    }
+//    @GetMapping("/findAllImageByUser/{id}")
+//    public ResponseEntity<Iterable<Image>> findAllImageByUser(@PathVariable Long id){
+//        Iterable<Image> images=imageService.findAllByUser(userService.findById(id).get());
+//        return new ResponseEntity<>(images,HttpStatus.OK);
+//    }
+    @GetMapping("/findAllImageByUser/{id}")
+    public ResponseEntity<Iterable<Image>> findAllImageByUser(@PathVariable Long id){
+        Iterable<Image> images=imageService.findAllImageByUserId(id);
+        return new ResponseEntity<>(images,HttpStatus.OK);
     }
 }

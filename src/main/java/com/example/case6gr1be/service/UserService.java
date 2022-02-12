@@ -24,5 +24,8 @@ public interface UserService extends UserDetailsService {
     boolean isRegister(User user);
 
     boolean isCorrectConfirmPassword(User user);
+
     Iterable<User> newServiceProvider();
+
+    Iterable<User> getUsersByStatus(Long id);
 }
