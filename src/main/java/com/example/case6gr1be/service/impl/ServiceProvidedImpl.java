@@ -20,10 +20,14 @@ public class ServiceProvidedImpl implements ServiceProvidedService {
     public Iterable<ServiceProvided> findAllByIdUser(Long id) {
         return serviceProvidedRepository.findAllByIdUser(id);
     }
-
-
     @Override
     public void add(ServiceProvided serviceProvided) {
         serviceProvidedRepository.save(serviceProvided);
     }
+
+    @Override
+    public void delete(ServiceProvided serviceProvided) {
+        serviceProvidedRepository.delete(serviceProvided);
+    }
+
 }

@@ -8,4 +8,5 @@ public interface ServiceProvidedService {
     Iterable<ServiceProvided> findAll();
     Iterable<ServiceProvided> findAllByIdUser(Long id);
     void add(ServiceProvided serviceProvided);
+    void delete(ServiceProvided serviceProvided);
 }

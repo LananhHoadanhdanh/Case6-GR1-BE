@@ -45,7 +45,7 @@ public class SerProvidedController {
         serProvideds.forEach(new Consumer<SerProvided>() {
             @Override
             public void accept(SerProvided ser) {
-                if (ser.getCategory()== 1) {
+                if (ser.getCategory() == 1) {
                     serviceFree.add(ser);
                 }
             }
@@ -60,13 +60,14 @@ public class SerProvidedController {
         serProvideds.forEach(new Consumer<SerProvided>() {
             @Override
             public void accept(SerProvided ser) {
-                if (ser.getCategory()==2) {
+                if (ser.getCategory() == 2) {
                     serviceExtend.add(ser);
                 }
             }
         });
         return new ResponseEntity<>(serviceExtend, HttpStatus.OK);
     }
+
     @GetMapping("/serviceMinTime")
     public ResponseEntity<ArrayList<SerProvided>> SerMinTime() {
         Iterable<SerProvided> serProvideds = serProvinderService.findAll();
@@ -74,7 +75,7 @@ public class SerProvidedController {
         serProvideds.forEach(new Consumer<SerProvided>() {
             @Override
             public void accept(SerProvided ser) {
-                if (ser.getCategory() ==0) {
+                if (ser.getCategory() == 0) {
                     serviceExtend.add(ser);
                 }
             }
@@ -91,6 +92,7 @@ public class SerProvidedController {
     public ResponseEntity<Iterable<ServiceProvided>> findAllServiceByIdUser(@PathVariable Long id) {
         return new ResponseEntity<>(serviceProvidedService.findAllByIdUser(id), HttpStatus.OK);
     }
+
 
     @GetMapping("/serviceName/{id}")
     public ArrayList<String> serName(@PathVariable Long id, Long idService[]) {
@@ -112,6 +114,18 @@ public class SerProvidedController {
             }
         });
         return name;
+    }
+
+    @DeleteMapping("/deleteService/{idU}")
+    public void delete(@PathVariable Long idU) {
+        serviceProvidedService.findAll().forEach(new Consumer<ServiceProvided>() {
+            @Override
+            public void accept(ServiceProvided serviceProvided) {
+                if (serviceProvided.getIdUser() == idU ) {
+                    serviceProvidedService.delete(serviceProvided);
+                }
+            }
+        });
     }
 
     @PostMapping("/actService")
