@@ -11,6 +11,6 @@ public interface ImageRepository extends JpaRepository<Image, Long> {
 
     Iterable<Image> findAllByUser(User user);
 //    @Query("select  i from Image i where i.user.id= :id ")
-    @Query(value = "select *from image where image.user_id= :id  order by id desc limit 3",nativeQuery = true)
+    @Query(value = "select * from image where image.user_id= :id order by id desc limit 3",nativeQuery = true)
     Iterable<Image> findAllImageByUserId(@Param("id") Long id);
 }

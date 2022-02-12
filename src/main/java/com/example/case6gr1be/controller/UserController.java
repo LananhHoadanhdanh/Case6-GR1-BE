@@ -98,6 +98,7 @@ public class UserController {
         user.setStartTime(LocalDateTime.now());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setConfirmPassword(passwordEncoder.encode(user.getConfirmPassword()));
+
         userService.save(user);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
@@ -218,6 +219,7 @@ public class UserController {
         User user = userService.findById(id).get();
         int view = user.getView() + 1;
         user.setView(view);
+        user.setId(id);
         userService.save(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
@@ -226,7 +228,8 @@ public class UserController {
     public ResponseEntity<User>increaseRentCount(@PathVariable Long id) {
         User user = userService.findById(id).get();
         int rentCount = user.getRentCount() + 1;
-        user.setView(rentCount);
+        user.setRentCount(rentCount);
+        user.setId(id);
         userService.save(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
@@ -250,6 +253,11 @@ public class UserController {
     public ResponseEntity<Iterable<Image>> findAllImageByUser(@PathVariable Long id){
         Iterable<Image> images=imageService.findAllImageByUserId(id);
         return new ResponseEntity<>(images,HttpStatus.OK);
+    }
+    @GetMapping("/activeAndVipUsers")
+    public ResponseEntity<Iterable<User>> getActiveAndVipUsers(){
+        Iterable<User> users = userService.getActiveAndVipUsers();
+        return new ResponseEntity<>(users,HttpStatus.OK);
     }
 
     @GetMapping("/usersByView")

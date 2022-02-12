@@ -142,6 +142,7 @@ public class SerProvidedController {
 
         roleSet.add(role);
         user.setRoles(roleSet);
+        user.setPrice(70000);
         userService.save(user);
     }
 

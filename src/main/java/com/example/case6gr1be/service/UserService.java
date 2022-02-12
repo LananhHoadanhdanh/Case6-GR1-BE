@@ -37,5 +37,8 @@ public interface UserService extends UserDetailsService {
     Iterable<User> get6UserByView();
 
     ArrayList<SerProvided> get3Service(Long id);
+
     Iterable<User> list12UserSuitableForGender( String gender);
+
+    Iterable<User> getActiveAndVipUsers();
 }

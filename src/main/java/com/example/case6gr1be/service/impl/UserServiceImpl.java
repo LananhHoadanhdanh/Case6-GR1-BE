@@ -162,4 +162,9 @@ public class UserServiceImpl implements UserService {
     public Iterable<User> list12UserSuitableForGender(String gender) {
         return userRepository.list12UserSuitableForGender(gender);
     }
+
+    @Override
+    public Iterable<User> getActiveAndVipUsers() {
+        return userRepository.getActiveAndVipUsers();
+    }
 }
