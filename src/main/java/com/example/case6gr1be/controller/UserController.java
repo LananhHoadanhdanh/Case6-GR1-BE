@@ -9,6 +9,7 @@ import com.example.case6gr1be.service.impl.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -266,6 +267,11 @@ public class UserController {
     @GetMapping("/list6UserVip")
     public ResponseEntity<Iterable<User>> list6UserVip(){
         Iterable<User> users=userService.find6UserVIP();
+        return new ResponseEntity<>(users,HttpStatus.OK);
+    }
+    @GetMapping("/list12UserSuitableForGender/{gender}")
+    public ResponseEntity<Iterable<User>> list12UserSuitableForGender(@PathVariable String gender){
+        Iterable<User> users=userService.list12UserSuitableForGender(gender);
         return new ResponseEntity<>(users,HttpStatus.OK);
     }
 }

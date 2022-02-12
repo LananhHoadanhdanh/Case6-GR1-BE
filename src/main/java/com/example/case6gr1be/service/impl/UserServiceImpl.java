@@ -157,4 +157,9 @@ public class UserServiceImpl implements UserService {
         }
         return serProvideds;
     }
+
+    @Override
+    public Iterable<User> list12UserSuitableForGender(String gender) {
+        return userRepository.list12UserSuitableForGender(gender);
+    }
 }
