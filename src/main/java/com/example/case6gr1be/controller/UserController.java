@@ -257,6 +257,17 @@ public class UserController {
         Iterable<User> users = userService.get6UserByView();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
+    @GetMapping("/rent8Female")
+    public ResponseEntity<Iterable<User>> getUserByRentCount8female() {
+        Iterable<User> users = userService.getUserByRentCount8female();
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    @GetMapping("/rent4Male")
+    public ResponseEntity<Iterable<User>> getUserByRentCount4male() {
+        Iterable<User> users = userService.getUserByRentCount4male();
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
 
     @GetMapping("/serProvidedByUser")
     public ResponseEntity<ArrayList<SerProvided>> get3SerProviderRandom(Long userId) {
