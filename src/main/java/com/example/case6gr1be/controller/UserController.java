@@ -212,6 +212,24 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
+    @PutMapping("/users/{id}/increaseViews")
+    public ResponseEntity<User>increaseViews(@PathVariable Long id) {
+        User user = userService.findById(id).get();
+        int view = user.getView() + 1;
+        user.setView(view);
+        userService.save(user);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @PutMapping("/users/{id}/increaseRentCount")
+    public ResponseEntity<User>increaseRentCount(@PathVariable Long id) {
+        User user = userService.findById(id).get();
+        int rentCount = user.getRentCount() + 1;
+        user.setView(rentCount);
+        userService.save(user);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
     @PostMapping("/loadImage")
     public ResponseEntity<Image> loadImage(@RequestBody Image image) {
         imageService.save(image);
