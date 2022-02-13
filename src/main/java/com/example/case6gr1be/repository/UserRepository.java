@@ -14,12 +14,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findByUsername(String username);
 
     @Query(value = "select * from user_table where user_table.id in (select user_id from (select user_id from user_role\n" +
-            "                                                                      group by user_id\n" +
-            "                                                                      having count(user_id) >= 2) as dem_role) " +
+            "group by user_id\n" +
+            "having count(user_id) >= 2) as dem_role) " +
             "and (status_user_id = 4 or status_user_id = 2) order by id desc limit 12", nativeQuery = true)
     Iterable<User> newServiceProvider();
 
-    @Query("select u from User u where u.status.id = :id order by u.id desc")
+    @Query("select u from User u where u.status.id = :id")
     Iterable<User> getUsersByStatus(@Param("id") Long id);
 
     @Query("select u from User u where u.status.id = 2 or u.status.id = 4 order by u.id desc")
@@ -31,9 +31,20 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "having count(user_id) >= 2) as dem_role) and (status_user_id = 4) order by id desc limit 6 ", nativeQuery = true)
     Iterable<User> find6UserVIP();
 
-    @Query(value = "select * from user_table where user_table.id in (select user_id from (select user_id from user_role\n" +
-            "group by user_id having count(user_id) >= 2) as dem_role) order by view desc limit 6 ", nativeQuery = true)
+    @Query(value = "select * from user_table where (user_table.id in (select user_id from (select user_id from user_role\n" +
+            "group by user_id having count(user_id) >= 2) as dem_role))\n" +
+            "and (status_user_id = 4 or status_user_id = 2) order by view desc limit 6", nativeQuery = true)
     Iterable<User> get6UserByView();
+
+    @Query(value = "select * from user_table where (user_table.id in (select user_id from (select user_id from user_role\n" +
+            "group by user_id having count(user_id) >= 2) as dem_role))\n" +
+            "and (status_user_id = 4 or status_user_id = 2) and (user_table.gender LIKE 'female') order by rent_count desc limit 8", nativeQuery = true)
+    Iterable<User> getUserByRentCount8female();
+
+    @Query(value = "select * from user_table where (user_table.id in (select user_id from (select user_id from user_role\n" +
+            "group by user_id having count(user_id) >= 2) as dem_role))\n" +
+            "and (status_user_id = 4 or status_user_id = 2) and (user_table.gender LIKE 'male') order by rent_count desc limit 4", nativeQuery = true)
+    Iterable<User> getUserByRentCount4male();
 
     @Query(value = "select id_service from (select id_service from service_provided where id_user = :id) as dich_vu_theo_user order by rand() limit 3;", nativeQuery = true)
     Iterable<BigInteger> get3Service(@Param("id") Long id);

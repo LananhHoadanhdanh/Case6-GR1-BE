@@ -146,6 +146,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Iterable<User> getUserByRentCount8female() {
+        return userRepository.getUserByRentCount8female();
+    }
+
+    @Override
+    public Iterable<User> getUserByRentCount4male() {
+        return userRepository.getUserByRentCount4male();
+    }
+
+    @Override
     public ArrayList<SerProvided> get3Service(Long id) {
         ArrayList<SerProvided> serProvideds = new ArrayList<>();
 
