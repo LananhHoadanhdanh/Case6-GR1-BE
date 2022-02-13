@@ -292,10 +292,10 @@ public class UserController {
     public ResponseEntity<Iterable<User>> list12UserSuitableForGender(@PathVariable String gender){
         if(gender.equals("male")){
             gender="female";
-        }
-        if(gender.equals("female")){
+        }else if(gender.equals("female")) {
             gender="male";
         }
+
         Iterable<User> users=userService.list12UserSuitableForGender(gender);
         return new ResponseEntity<>(users,HttpStatus.OK);
     }
