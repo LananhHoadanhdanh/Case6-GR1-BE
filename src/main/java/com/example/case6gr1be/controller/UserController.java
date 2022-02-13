@@ -296,6 +296,7 @@ public class UserController {
             gender="male";
         }
 
+
         Iterable<User> users=userService.list12UserSuitableForGender(gender);
         return new ResponseEntity<>(users,HttpStatus.OK);
     }
