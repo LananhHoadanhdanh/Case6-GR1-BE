@@ -27,4 +27,9 @@ public class OrderServiceImpl implements OrderService {
     public void save(Order order) {
         orderRepository.save(order);
     }
+
+    @Override
+    public Iterable<Order> getAllOrderByRenter(Long id) {
+        return orderRepository.getAllOrderByRenter(id);
+    }
 }

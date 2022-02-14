@@ -118,7 +118,7 @@ public class UserController {
     }
 
     @GetMapping("/hello")
-    public ResponseEntity<String> hello(){
+    public ResponseEntity<String> hello() {
         return new ResponseEntity("Hello World", HttpStatus.OK);
     }
 
@@ -153,7 +153,7 @@ public class UserController {
     }
 
     @PutMapping("/users/{id}/uploadPrice")
-    public ResponseEntity<User>userPriceUpdate(@PathVariable Long id, long price) {
+    public ResponseEntity<User> userPriceUpdate(@PathVariable Long id, long price) {
         Optional<User> userOptional = userService.findById(id);
         User user = userOptional.get();
         user.setPrice(price);
@@ -163,7 +163,7 @@ public class UserController {
     }
 
     @PutMapping("/users/{id}/increaseViews")
-    public ResponseEntity<User>increaseViews(@PathVariable Long id) {
+    public ResponseEntity<User> increaseViews(@PathVariable Long id) {
         User user = userService.findById(id).get();
         int view = user.getView() + 1;
         user.setView(view);
@@ -173,7 +173,7 @@ public class UserController {
     }
 
     @PutMapping("/users/{id}/increaseRentCount")
-    public ResponseEntity<User>increaseRentCount(@PathVariable Long id) {
+    public ResponseEntity<User> increaseRentCount(@PathVariable Long id) {
         User user = userService.findById(id).get();
         int rentCount = user.getRentCount() + 1;
         user.setRentCount(rentCount);
@@ -185,23 +185,25 @@ public class UserController {
     @PostMapping("/loadImage")
     public ResponseEntity<Image> loadImage(@RequestBody Image image) {
         imageService.save(image);
-        return new ResponseEntity<>(image, HttpStatus.OK);}
+        return new ResponseEntity<>(image, HttpStatus.OK);
+    }
 
     @GetMapping("/12newServiceProvider")
-    public ResponseEntity<Iterable<User>> newServiceProvider(){
-        Iterable<User> newServiceProvider=userService.newServiceProvider();
-        return new ResponseEntity<>(newServiceProvider,HttpStatus.OK);
+    public ResponseEntity<Iterable<User>> newServiceProvider() {
+        Iterable<User> newServiceProvider = userService.newServiceProvider();
+        return new ResponseEntity<>(newServiceProvider, HttpStatus.OK);
     }
 
     @GetMapping("/findAllImageByUser/{id}")
-    public ResponseEntity<Iterable<Image>> findAllImageByUser(@PathVariable Long id){
-        Iterable<Image> images=imageService.findAllImageByUserId(id);
-        return new ResponseEntity<>(images,HttpStatus.OK);
+    public ResponseEntity<Iterable<Image>> findAllImageByUser(@PathVariable Long id) {
+        Iterable<Image> images = imageService.findAllImageByUserId(id);
+        return new ResponseEntity<>(images, HttpStatus.OK);
     }
+
     @GetMapping("/activeAndVipUsers")
-    public ResponseEntity<Iterable<User>> getActiveAndVipUsers(){
+    public ResponseEntity<Iterable<User>> getActiveAndVipUsers() {
         Iterable<User> users = userService.getActiveAndVipUsers();
-        return new ResponseEntity<>(users,HttpStatus.OK);
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @GetMapping("/usersByView")
@@ -209,6 +211,7 @@ public class UserController {
         Iterable<User> users = userService.get6UserByView();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
+
     @GetMapping("/rent8Female")
     public ResponseEntity<Iterable<User>> getUserByRentCount8female() {
         Iterable<User> users = userService.getUserByRentCount8female();
@@ -228,18 +231,19 @@ public class UserController {
     }
 
     @GetMapping("/list6UserVip")
-    public ResponseEntity<Iterable<User>> list6UserVip(){
-        Iterable<User> users=userService.find6UserVIP();
-        return new ResponseEntity<>(users,HttpStatus.OK);
+    public ResponseEntity<Iterable<User>> list6UserVip() {
+        Iterable<User> users = userService.find6UserVIP();
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
+
     @GetMapping("/list12UserSuitableForGender/{gender}")
-    public ResponseEntity<Iterable<User>> list12UserSuitableForGender(@PathVariable String gender){
-        if(gender.equals("male")){
-            gender="female";
-        }else if(gender.equals("female")) {
-            gender="male";
+    public ResponseEntity<Iterable<User>> list12UserSuitableForGender(@PathVariable String gender) {
+        if (gender.equals("male")) {
+            gender = "female";
+        } else if (gender.equals("female")) {
+            gender = "male";
         }
-        Iterable<User> users=userService.list12UserSuitableForGender(gender);
-        return new ResponseEntity<>(users,HttpStatus.OK);
+        Iterable<User> users = userService.list12UserSuitableForGender(gender);
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 }
