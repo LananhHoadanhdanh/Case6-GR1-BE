@@ -48,5 +48,11 @@ public interface UserService extends UserDetailsService {
 
     Iterable<User> getActiveAndVipUsers();
     Iterable<User> findUserAllByFullName(String queryName);
-
+    Iterable<User> findAllByAgeTo( String formAge, String toAge);
+    Iterable<User> findAllByViewAsc();
+    Iterable<User> findAllByViewDesc();
+    Iterable<User> findAllByRentCountDesc();
+    Iterable<User> findAllByRentCountAsc();
+    Iterable<User> listUserFor2Address(String city,@Param("city2") String city2);
+    Iterable<User> listUserForAddress( String city);
 }
