@@ -31,6 +31,12 @@ public class Order {
     public Order() {
     }
 
+    public Order(Date startTime, double timeRent, User provider, User renter) {
+        this.timeRent = timeRent;
+        this.provider = provider;
+        this.renter = renter;
+    }
+
     public Order(double timeRent, OrderStatus status, User provider, User renter) {
         this.timeRent = timeRent;
         this.status = status;
