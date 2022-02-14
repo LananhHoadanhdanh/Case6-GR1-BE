@@ -22,6 +22,13 @@ public class Order {
         this.timeRent = timeRent;
     }
 
+    public Order(Date bookingTime, Date startTime, Date endTime, double timeRent) {
+        this.bookingTime = bookingTime;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.timeRent = timeRent;
+    }
+
     public Order() {
     }
 
