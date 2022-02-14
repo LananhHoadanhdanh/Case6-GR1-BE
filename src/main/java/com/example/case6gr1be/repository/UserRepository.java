@@ -112,4 +112,18 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "and (user_table.age>= :fromAge and user_table.age<= :toAge) " +
             "and  user_table.full_name like :name",nativeQuery = true)
     Iterable <User> findAllByAgeAndName(@Param("fromAge") String fromAge,@Param("toAge") String toAge,@Param("name") String name);
+
+    @Query(value = "select * from user_table where user_table.id in (select user_id\n" +
+            "from (select user_id\n" +
+            "from user_role  group by user_id\n" +
+            "having count(user_id) >= 2) as dem_role) and (status_user_id = 4 or status_user_id = 2)\n" +
+            "                           and (user_table.age>= :fromAge and user_table.age<= :toAge)\n" +
+            "                           and  user_table.full_name like :name \n" +
+            "                           and user_table.gender like :gender",nativeQuery = true)
+    Iterable<User> findAllByAgeAndNameAndGender(@Param("fromAge") String fromAge,@Param("toAge") String toAge,
+                                                @Param("name") String name,@Param("gender") String gender);
+
+
+
+
 }

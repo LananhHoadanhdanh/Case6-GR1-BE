@@ -56,5 +56,7 @@ public interface UserService extends UserDetailsService {
     Iterable<User> listUserFor2Address(String city, String city2);
     Iterable<User> listUserForAddress( String city);
     Iterable <User> findAllByAgeAndName( String fromAge,String toAge, String name);
+    Iterable<User> findAllByAgeAndNameAndGender( String fromAge, String toAge, String name, String gender);
+
 
 }

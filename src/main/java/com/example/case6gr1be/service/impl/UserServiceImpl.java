@@ -223,4 +223,9 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAllByAgeAndName(fromAge,toAge,name);
     }
 
+    @Override
+    public Iterable<User> findAllByAgeAndNameAndGender(String fromAge, String toAge, String name, String gender) {
+        return userRepository.findAllByAgeAndNameAndGender(fromAge,toAge,name,gender);
+    }
+
 }
