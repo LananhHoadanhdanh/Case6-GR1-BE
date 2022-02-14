@@ -52,7 +52,7 @@ public class User {
 
     @ManyToOne
     @JoinColumn(name = "statusUserId")
-    StatusUser status;
+    private StatusUser status;
 
     @ManyToMany(fetch = FetchType.EAGER)
 

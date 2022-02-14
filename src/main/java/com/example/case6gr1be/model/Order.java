@@ -11,11 +11,15 @@ public class Order {
     private Timestamp bookingTime;
     private Timestamp startTime;
     private Timestamp endTime;
+
     @ManyToOne
+    @JoinColumn(name = "status_id")
     private OrderStatus status;
+
     @ManyToOne
     @JoinColumn(name = "provider_id")
     private User provider;
+
     @ManyToOne
     @JoinColumn(name = "renter_id")
     private User renter;
