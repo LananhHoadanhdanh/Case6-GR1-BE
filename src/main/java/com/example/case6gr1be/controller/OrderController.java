@@ -9,6 +9,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.Date;
+
 @RestController
 @CrossOrigin("*")
 @PropertySource("classpath:application.properties")
@@ -26,6 +30,14 @@ public class OrderController {
     @PostMapping("/orders")
     public void save(@RequestBody Order order) {
         orderService.save(order);
+    }
+
+    @PostMapping("/order")
+    public void saveCheck(@RequestBody Order order) {
+        if (order.getStartTime().getTime() >= order.getBookingTime().getTime()
+                && (order.getEndTime().getTime() - order.getStartTime().getTime()>=3600001)) {
+            orderService.save(order);
+        }
     }
 
 }

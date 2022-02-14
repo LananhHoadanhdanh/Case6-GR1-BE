@@ -2,6 +2,8 @@ package com.example.case6gr1be.model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "order_table")
@@ -58,6 +60,15 @@ public class Order {
 
     public Timestamp getBookingTime() {
         return bookingTime;
+    }
+
+    public Order(Timestamp startTime, Timestamp endTime, double timeRent, OrderStatus status, User provider, User renter) {
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.timeRent = timeRent;
+        this.status = status;
+        this.provider = provider;
+        this.renter = renter;
     }
 
     public void setBookingTime(Timestamp bookingTime) {
