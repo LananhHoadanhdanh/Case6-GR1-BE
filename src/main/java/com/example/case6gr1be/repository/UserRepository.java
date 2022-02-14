@@ -1,8 +1,6 @@
 package com.example.case6gr1be.repository;
 
 import com.example.case6gr1be.model.User;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -67,4 +65,14 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "from user_role  group by user_id\n" +
             "having count(user_id) >= 2) as dem_role) and (status_user_id = 4 or status_user_id = 2) and (user_table.age >= :formAge and user_table.age <= :toAge )" ,nativeQuery = true)
     Iterable<User> findAllByAgeTo(@Param("formAge") String formAge,@Param("toAge") String toAge);
+
+    @Query(value = "select * from user_table where (user_table.id in (select user_id from (select user_id from user_role\n" +
+            "group by user_id having count(user_id) >= 2) as dem_role))\n" +
+            "and (status_user_id = 4 or status_user_id = 2) order by view desc ", nativeQuery = true)
+    Iterable<User> findAllByViewDesc();
+    @Query(value = "select * from user_table where (user_table.id in (select user_id from (select user_id from user_role\n" +
+            "group by user_id having count(user_id) >= 2) as dem_role))\n" +
+            "and (status_user_id = 4 or status_user_id = 2) order by view  ", nativeQuery = true)
+    Iterable<User> findAllByViewAsc();
+
 }
