@@ -42,6 +42,7 @@ public class User {
     private String hobby;
     private String description;
     private String request;
+    private String age;
 
     private String facebook;
     private LocalDateTime startTime;
@@ -95,7 +96,15 @@ public class User {
         this.status = status;
     }
 
-    public User(String fullName, String city, String nationality, Date birthday, String gender, String avatar, double height, double weight, String hobby, String description, String request, String facebook) {
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+    public User(String fullName, String city, String nationality, Date birthday, String gender, String avatar, double height, double weight, String hobby, String description, String request, String facebook,String age) {
         this.fullName = fullName;
         this.city = city;
         this.nationality = nationality;
@@ -108,6 +117,7 @@ public class User {
         this.description = description;
         this.request = request;
         this.facebook = facebook;
+        this.age = age;
     }
 
     public String getFullName() {
