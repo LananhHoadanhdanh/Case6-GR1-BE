@@ -162,58 +162,6 @@ public class UserController {
         return new ResponseEntity<>(userOptional.get(), HttpStatus.OK);
     }
 
-    @PutMapping("/users/{id}/lockAccount")
-    public ResponseEntity<User>lockAccount(@PathVariable Long id) {
-        Optional<User> userOptional = userService.findById(id);
-        User user = userOptional.get();
-
-        Optional<StatusUser> statusUser = statusUserService.findById(3L);
-        StatusUser status = statusUser.get();
-
-        user.setStatus(status);
-        userService.save(user);
-        return new ResponseEntity<>(user, HttpStatus.OK);
-    }
-
-    @PutMapping("/users/{id}/updateVipAccount")
-    public ResponseEntity<User>updateVipAccount(@PathVariable Long id) {
-        Optional<User> userOptional = userService.findById(id);
-        User user = userOptional.get();
-
-        Optional<StatusUser> statusUser = statusUserService.findById(4L);
-        StatusUser status = statusUser.get();
-
-        user.setStatus(status);
-        userService.save(user);
-        return new ResponseEntity<>(user, HttpStatus.OK);
-    }
-
-    @PutMapping("/users/{id}/browseAccount")
-    public ResponseEntity<User>browseAccounts(@PathVariable Long id) {
-        Optional<User> userOptional = userService.findById(id);
-        User user = userOptional.get();
-
-        Optional<StatusUser> statusUser = statusUserService.findById(2L);
-        StatusUser status = statusUser.get();
-
-        user.setStatus(status);
-        userService.save(user);
-        return new ResponseEntity<>(user, HttpStatus.OK);
-    }
-
-    @PutMapping("/users/{id}/pauseAccount")
-    public ResponseEntity<User>pauseAccounts(@PathVariable Long id) {
-        Optional<User> userOptional = userService.findById(id);
-        User user = userOptional.get();
-
-        Optional<StatusUser> statusUser = statusUserService.findById(5L);
-        StatusUser status = statusUser.get();
-
-        user.setStatus(status);
-        userService.save(user);
-        return new ResponseEntity<>(user, HttpStatus.OK);
-    }
-
     @PutMapping("/users/{id}/increaseViews")
     public ResponseEntity<User>increaseViews(@PathVariable Long id) {
         User user = userService.findById(id).get();
@@ -244,11 +192,7 @@ public class UserController {
         Iterable<User> newServiceProvider=userService.newServiceProvider();
         return new ResponseEntity<>(newServiceProvider,HttpStatus.OK);
     }
-//    @GetMapping("/findAllImageByUser/{id}")
-//    public ResponseEntity<Iterable<Image>> findAllImageByUser(@PathVariable Long id){
-//        Iterable<Image> images=imageService.findAllByUser(userService.findById(id).get());
-//        return new ResponseEntity<>(images,HttpStatus.OK);
-//    }
+
     @GetMapping("/findAllImageByUser/{id}")
     public ResponseEntity<Iterable<Image>> findAllImageByUser(@PathVariable Long id){
         Iterable<Image> images=imageService.findAllImageByUserId(id);
@@ -295,8 +239,6 @@ public class UserController {
         }else if(gender.equals("female")) {
             gender="male";
         }
-
-
         Iterable<User> users=userService.list12UserSuitableForGender(gender);
         return new ResponseEntity<>(users,HttpStatus.OK);
     }
