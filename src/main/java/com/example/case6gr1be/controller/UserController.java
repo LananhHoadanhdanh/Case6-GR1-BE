@@ -259,6 +259,45 @@ public class UserController {
         Iterable<User> users = userService.findUserAllByFullName('%' + queryName + '%');
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
-
+    @GetMapping("/findByGender/{gender}")
+    public ResponseEntity<Iterable<User>> findByGender(@PathVariable String gender){
+        Iterable<User> users = userService.list12UserSuitableForGender(gender);
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+    @GetMapping("/findUserAllByAge/{formAge}/{toAge}")
+    public ResponseEntity<Iterable<User>> findAllByAge(@PathVariable String formAge,@PathVariable String toAge){
+        Iterable<User> users=userService.findAllByAgeTo(formAge,toAge);
+        return new ResponseEntity<>(users,HttpStatus.OK);
+    }
+    @GetMapping("/findAllByRentCountDesc")
+    public ResponseEntity<Iterable<User>> findAllByRentCountDesc(){
+        Iterable<User> users=userService.findAllByRentCountDesc();
+        return new ResponseEntity<>(users,HttpStatus.OK);
+    }
+    @GetMapping("/findAllByRentCountAsc")
+    public ResponseEntity<Iterable<User>> findAllByRentCountAsc(){
+        Iterable<User> users=userService.findAllByRentCountAsc();
+        return new ResponseEntity<>(users,HttpStatus.OK);
+    }
+    @GetMapping("/findAllByViewDesc")
+    public ResponseEntity<Iterable<User>> findAllByViewDesc(){
+        Iterable<User> users=userService.findAllByViewDesc();
+        return new ResponseEntity<>(users,HttpStatus.OK);
+    }
+    @GetMapping("/findAllByViewAsc")
+    public ResponseEntity<Iterable<User>> findAllByViewAsc(){
+        Iterable<User> users=userService.findAllByViewAsc();
+        return new ResponseEntity<>(users,HttpStatus.OK);
+    }
+    @GetMapping("/findAllBy2City/{city}/{city2}")
+    public ResponseEntity<Iterable<User>> findAllByCity(@PathVariable String city,@PathVariable String city2){
+        Iterable<User> users=userService.listUserFor2Address(city,city2);
+        return new ResponseEntity<>(users,HttpStatus.OK);
+    }
+    @GetMapping("/findAllByCity/{city}")
+    public ResponseEntity<Iterable<User>> findAllBy2City(@PathVariable String city){
+        Iterable<User> users=userService.listUserForAddress(city);
+        return new ResponseEntity<>(users,HttpStatus.OK);
+    }
 
 }

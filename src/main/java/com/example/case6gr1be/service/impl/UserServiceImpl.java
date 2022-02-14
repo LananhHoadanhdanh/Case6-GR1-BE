@@ -185,5 +185,37 @@ public class UserServiceImpl implements UserService {
         return userRepository.findUserAllByFullName(queryName);
     }
 
+    @Override
+    public Iterable<User> findAllByAgeTo(String formAge, String toAge) {
+        return userRepository.findAllByAgeTo(formAge,toAge);
+    }
+    @Override
+    public Iterable<User> findAllByViewAsc() {
+        return userRepository.findAllByViewAsc();
+    }
+    @Override
+    public Iterable<User> findAllByViewDesc() {
+        return userRepository.findAllByViewDesc();
+    }
+
+    @Override
+    public Iterable<User> findAllByRentCountDesc() {
+        return userRepository.findAllByRentCountDesc();
+    }
+
+    @Override
+    public Iterable<User> findAllByRentCountAsc() {
+        return userRepository.findAllByRentCountAsc();
+    }
+
+    @Override
+    public Iterable<User> listUserFor2Address(String city, String city2) {
+        return userRepository.listUserFor2Address(city,city2);
+    }
+
+    @Override
+    public Iterable<User> listUserForAddress(String city) {
+        return userRepository.listUserForAddress(city);
+    }
 
 }
