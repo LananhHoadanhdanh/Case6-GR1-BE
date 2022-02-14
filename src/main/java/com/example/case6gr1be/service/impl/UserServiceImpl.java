@@ -8,6 +8,8 @@ import com.example.case6gr1be.repository.UserRepository;
 import com.example.case6gr1be.service.SerProvidedService;
 import com.example.case6gr1be.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -177,4 +179,11 @@ public class UserServiceImpl implements UserService {
     public Iterable<User> getActiveAndVipUsers() {
         return userRepository.getActiveAndVipUsers();
     }
+
+    @Override
+    public Iterable<User> findUserAllByFullName(String queryName) {
+        return userRepository.findUserAllByFullName(queryName);
+    }
+
+
 }

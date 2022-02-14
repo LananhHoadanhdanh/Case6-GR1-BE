@@ -2,6 +2,8 @@ package com.example.case6gr1be.service;
 
 import com.example.case6gr1be.model.SerProvided;
 import com.example.case6gr1be.model.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -45,4 +47,6 @@ public interface UserService extends UserDetailsService {
     Iterable<User> list12UserSuitableForGender( String gender);
 
     Iterable<User> getActiveAndVipUsers();
+    Iterable<User> findUserAllByFullName(String queryName);
+
 }

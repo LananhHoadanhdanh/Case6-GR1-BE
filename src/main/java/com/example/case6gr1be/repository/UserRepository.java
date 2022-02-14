@@ -1,6 +1,8 @@
 package com.example.case6gr1be.repository;
 
 import com.example.case6gr1be.model.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -54,5 +56,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "from user_role  group by user_id\n" +
             "having count(user_id) >= 2) as dem_role) and (status_user_id = 4 or status_user_id = 2) and user_table.gender like :gender order by id desc limit 12", nativeQuery = true)
     Iterable<User> list12UserSuitableForGender(@Param("gender") String gender);
+    @Query(value = "select * from user_table where user_table.id in (select user_id\n" +
+            "from (select user_id\n" +
+            "from user_role  group by user_id\n" +
+            "having count(user_id) >= 2) as dem_role) and (status_user_id = 4 or status_user_id = 2) and (user_table.full_name like :queryName )",nativeQuery = true)
+    Iterable<User> findUserAllByFullName(@Param("queryName")String queryName);
 
 }
