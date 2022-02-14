@@ -29,13 +29,16 @@ public class OrderController {
 
     @PostMapping("/orders")
     public void save(@RequestBody Order order) {
+        order.setBookingTime(new Date());
         orderService.save(order);
     }
 
     @PostMapping("/order")
     public void saveCheck(@RequestBody Order order) {
+        order.setBookingTime(new Date());
         if (order.getStartTime().getTime() >= order.getBookingTime().getTime()
-                && (order.getEndTime().getTime() - order.getStartTime().getTime()>=3600001)) {
+                && ((order.getEndTime().getTime() - order.getStartTime().getTime())>=3600000)
+        ) {
             orderService.save(order);
         }
     }
