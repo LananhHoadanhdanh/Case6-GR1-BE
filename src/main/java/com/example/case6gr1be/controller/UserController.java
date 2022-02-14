@@ -251,14 +251,19 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-//    @GetMapping("/findUserAllByFullNamePage")
-//    public ResponseEntity<Page<User>> findUserAllByFullName(@PageableDefault(value = 3) Pageable pageable, String queryName) {
-//        Page<User> users=userService.findUserAllByFullName('%'+queryName+'%',pageable);
-//        return new ResponseEntity<>(users,HttpStatus.OK);
-//    }
     @GetMapping("/findUserAllByFullName")
     public ResponseEntity<Iterable<User>> findUserAllByFullName( String queryName) {
         Iterable<User> users=userService.findUserAllByFullName('%'+queryName+'%');
+        return new ResponseEntity<>(users,HttpStatus.OK);
+    }
+    @GetMapping("/findByGender/{gender}")
+    public ResponseEntity<Iterable<User>> findByGender(@PathVariable String gender){
+        Iterable<User> users = userService.list12UserSuitableForGender(gender);
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+    @GetMapping("/findUserAllByAge/{formAge}/{toAge}")
+    public ResponseEntity<Iterable<User>> findAllByAge(@PathVariable String formAge,@PathVariable String toAge){
+        Iterable<User> users=userService.findAllByAgeTo(formAge,toAge);
         return new ResponseEntity<>(users,HttpStatus.OK);
     }
 

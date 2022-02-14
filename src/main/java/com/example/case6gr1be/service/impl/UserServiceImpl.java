@@ -185,5 +185,10 @@ public class UserServiceImpl implements UserService {
         return userRepository.findUserAllByFullName(queryName);
     }
 
+    @Override
+    public Iterable<User> findAllByAgeTo(String formAge, String toAge) {
+        return userRepository.findAllByAgeTo(formAge,toAge);
+    }
+
 
 }
