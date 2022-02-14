@@ -156,7 +156,7 @@ public class UserController {
     }
 
     @PutMapping("/users/{id}/uploadPrice")
-    public ResponseEntity<User>userPriceUpdate(@PathVariable Long id, long price) {
+    public ResponseEntity<User> userPriceUpdate(@PathVariable Long id, long price) {
         Optional<User> userOptional = userService.findById(id);
         User user = userOptional.get();
         user.setPrice(price);
@@ -196,7 +196,8 @@ public class UserController {
         Iterable<User> newServiceProvider = userService.newServiceProvider();
         return new ResponseEntity<>(newServiceProvider, HttpStatus.OK);
     }
-//    @GetMapping("/findAllImageByUser/{id}")
+
+    //    @GetMapping("/findAllImageByUser/{id}")
 //    public ResponseEntity<Iterable<Image>> findAllImageByUser(@PathVariable Long id){
 //        Iterable<Image> images=imageService.findAllByUser(userService.findById(id).get());
 //        return new ResponseEntity<>(images,HttpStatus.OK);
@@ -206,6 +207,7 @@ public class UserController {
         Iterable<Image> images = imageService.findAllImageByUserId(id);
         return new ResponseEntity<>(images, HttpStatus.OK);
     }
+
     @GetMapping("/activeAndVipUsers")
     public ResponseEntity<Iterable<User>> getActiveAndVipUsers() {
         Iterable<User> users = userService.getActiveAndVipUsers();
@@ -217,6 +219,7 @@ public class UserController {
         Iterable<User> users = userService.get6UserByView();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
+
     @GetMapping("/rent8Female")
     public ResponseEntity<Iterable<User>> getUserByRentCount8female() {
         Iterable<User> users = userService.getUserByRentCount8female();
@@ -240,6 +243,7 @@ public class UserController {
         Iterable<User> users = userService.find6UserVIP();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
+
     @GetMapping("/list12UserSuitableForGender/{gender}")
     public ResponseEntity<Iterable<User>> list12UserSuitableForGender(@PathVariable String gender) {
         if (gender.equals("male")) {
@@ -251,15 +255,10 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-//    @GetMapping("/findUserAllByFullNamePage")
-//    public ResponseEntity<Page<User>> findUserAllByFullName(@PageableDefault(value = 3) Pageable pageable, String queryName) {
-//        Page<User> users=userService.findUserAllByFullName('%'+queryName+'%',pageable);
-//        return new ResponseEntity<>(users,HttpStatus.OK);
-//    }
     @GetMapping("/findUserAllByFullName")
-    public ResponseEntity<Iterable<User>> findUserAllByFullName( String queryName) {
-        Iterable<User> users=userService.findUserAllByFullName('%'+queryName+'%');
-        return new ResponseEntity<>(users,HttpStatus.OK);
+    public ResponseEntity<Iterable<User>> findUserAllByFullName(String queryName) {
+        Iterable<User> users = userService.findUserAllByFullName('%' + queryName + '%');
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
 
