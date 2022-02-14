@@ -16,20 +16,38 @@ public class Order {
     private Date endTime;
     private double timeRent;
 
-    public Order(Date startTime, Date endTime, double timeRent) {
+    @ManyToOne
+    @JoinColumn(name = "status_id")
+    private OrderStatus status;
+
+    @ManyToOne
+    @JoinColumn(name = "provider_id")
+    private User provider;
+
+    @ManyToOne
+    @JoinColumn(name = "renter_id")
+    private User renter;
+
+    public Order() {
+    }
+
+    public Order(Date startTime, Date endTime, double timeRent, OrderStatus status, User provider, User renter) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.timeRent = timeRent;
+        this.status = status;
+        this.provider = provider;
+        this.renter = renter;
     }
 
-    public Order(Date bookingTime, Date startTime, Date endTime, double timeRent) {
+    public Order(Date bookingTime, Date startTime, Date endTime, double timeRent, OrderStatus status, User provider, User renter) {
         this.bookingTime = bookingTime;
         this.startTime = startTime;
         this.endTime = endTime;
         this.timeRent = timeRent;
-    }
-
-    public Order() {
+        this.status = status;
+        this.provider = provider;
+        this.renter = renter;
     }
 
     public Long getId() {
@@ -70,5 +88,29 @@ public class Order {
 
     public void setTimeRent(double timeRent) {
         this.timeRent = timeRent;
+    }
+
+    public OrderStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
+    }
+
+    public User getProvider() {
+        return provider;
+    }
+
+    public void setProvider(User provider) {
+        this.provider = provider;
+    }
+
+    public User getRenter() {
+        return renter;
+    }
+
+    public void setRenter(User renter) {
+        this.renter = renter;
     }
 }
