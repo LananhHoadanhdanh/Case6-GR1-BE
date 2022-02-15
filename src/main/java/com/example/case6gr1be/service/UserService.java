@@ -45,4 +45,7 @@ public interface UserService extends UserDetailsService {
     Iterable<User> list12UserSuitableForGender( String gender);
 
     Iterable<User> getActiveAndVipUsers();
+
+    Iterable<User> new12ServiceProvider();
+
 }

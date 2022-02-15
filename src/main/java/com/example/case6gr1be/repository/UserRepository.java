@@ -55,4 +55,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "having count(user_id) >= 2) as dem_role) and (status_user_id = 4 or status_user_id = 2) and user_table.gender like :gender order by id desc limit 12", nativeQuery = true)
     Iterable<User> list12UserSuitableForGender(@Param("gender") String gender);
 
+    @Query(value = "select * from user_table where user_table.id in (select user_id from (select user_id from user_role\n" +
+            "group by user_id\n" +
+            "having count(user_id) >= 2) as dem_role) " +
+            "and (status_user_id = 4 or status_user_id = 2) order by id", nativeQuery = true)
+    Iterable<User> new12ServiceProvider();
 }

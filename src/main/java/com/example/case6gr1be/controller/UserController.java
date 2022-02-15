@@ -300,4 +300,10 @@ public class UserController {
         Iterable<User> users=userService.list12UserSuitableForGender(gender);
         return new ResponseEntity<>(users,HttpStatus.OK);
     }
+
+    @GetMapping("/12serviceProvider")
+    public ResponseEntity<Iterable<User>> serviceProvider(){
+        Iterable<User> newServiceProvider=userService.new12ServiceProvider();
+        return new ResponseEntity<>(newServiceProvider,HttpStatus.OK);
+    }
 }

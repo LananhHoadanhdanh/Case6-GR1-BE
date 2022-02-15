@@ -177,4 +177,9 @@ public class UserServiceImpl implements UserService {
     public Iterable<User> getActiveAndVipUsers() {
         return userRepository.getActiveAndVipUsers();
     }
+
+    @Override
+    public Iterable<User> new12ServiceProvider() {
+        return userRepository.new12ServiceProvider();
+    }
 }
