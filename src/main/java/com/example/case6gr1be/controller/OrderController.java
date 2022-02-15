@@ -77,25 +77,25 @@ public class OrderController {
                     ) {
                         if (orders.isEmpty()) {
                             orderService.save(order);
-                            check.add("save done");
                         } else {
                             orders.forEach(new Consumer<Order>() {
                                 @Override
                                 public void accept(Order or) {
                                     if (order.getStartTime().getTime() > or.getStartTime().getTime() && order.getStartTime().getTime() > or.getEndTime().getTime()
                                             || order.getEndTime().getTime() < or.getStartTime().getTime() && order.getStartTime().getTime() < or.getStartTime().getTime()) {
-                                        orderService.save(order);
-                                        check.add("save done");
+                                    } else {
+                                        check.add("ss");
                                     }
                                 }
                             });
                         }
+                    }else {
+                        check.add("ss");
                     }
                 }
                 if (serviceProvided.getIdService() == 9) {
                     if (order.getStartTime().getTime() >= order.getBookingTime().getTime()
-                            && ((order.getEndTime().getTime() - order.getStartTime().getTime()) >= 3600000)
-                    ) {
+                            && ((order.getEndTime().getTime() - order.getStartTime().getTime()) >= 3600000)) {
                         if (orders.isEmpty()) {
                             orderService.save(order);
                         } else {
@@ -110,6 +110,8 @@ public class OrderController {
                                 }
                             });
                         }
+                    } else {
+                        check.add("ss");
                     }
                 }
             }
