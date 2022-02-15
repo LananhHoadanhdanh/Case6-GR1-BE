@@ -32,4 +32,14 @@ public class OrderServiceImpl implements OrderService {
     public Iterable<Order> getAllOrderByRenter(Long id) {
         return orderRepository.getAllOrderByRenter(id);
     }
+
+    @Override
+    public Iterable<Order> getAllOrderByProvider(Long id) {
+        return orderRepository.getAllOrderByProvider(id);
+    }
+
+    @Override
+    public void removeOrder(Long id) {
+        orderRepository.deleteById(id);
+    }
 }

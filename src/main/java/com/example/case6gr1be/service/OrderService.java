@@ -5,4 +5,6 @@ import org.springframework.data.repository.query.Param;
 
 public interface OrderService extends GeneralService<Order>{
     Iterable<Order> getAllOrderByRenter(Long id);
+    Iterable<Order> getAllOrderByProvider(Long id);
+    void removeOrder(Long id);
 }

@@ -11,4 +11,7 @@ import org.springframework.stereotype.Repository;
 public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query("select o from Order o where o.renter.id = :id")
     Iterable<Order> getAllOrderByRenter(@Param("id") Long id);
+
+    @Query("select o from Order o where o.provider.id = :id")
+    Iterable<Order> getAllOrderByProvider(@Param("id") Long id);
 }
