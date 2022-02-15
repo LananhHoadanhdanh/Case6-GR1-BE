@@ -218,4 +218,14 @@ public class UserServiceImpl implements UserService {
         return userRepository.listUserForAddress(city);
     }
 
+    @Override
+    public Iterable<User> findAllByAgeAndName(String fromAge, String toAge, String name) {
+        return userRepository.findAllByAgeAndName(fromAge,toAge,name);
+    }
+
+    @Override
+    public Iterable<User> findAllByAgeAndNameAndGender(String fromAge, String toAge, String name, String gender) {
+        return userRepository.findAllByAgeAndNameAndGender(fromAge,toAge,name,gender);
+    }
+
 }

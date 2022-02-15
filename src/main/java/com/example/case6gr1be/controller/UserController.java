@@ -196,11 +196,6 @@ public class UserController {
         return new ResponseEntity<>(newServiceProvider, HttpStatus.OK);
     }
 
-    //    @GetMapping("/findAllImageByUser/{id}")
-//    public ResponseEntity<Iterable<Image>> findAllImageByUser(@PathVariable Long id){
-//        Iterable<Image> images=imageService.findAllByUser(userService.findById(id).get());
-//        return new ResponseEntity<>(images,HttpStatus.OK);
-//    }
     @GetMapping("/findAllImageByUser/{id}")
     public ResponseEntity<Iterable<Image>> findAllImageByUser(@PathVariable Long id) {
         Iterable<Image> images = imageService.findAllImageByUserId(id);
@@ -297,6 +292,16 @@ public class UserController {
     @GetMapping("/findAllByCity/{city}")
     public ResponseEntity<Iterable<User>> findAllBy2City(@PathVariable String city){
         Iterable<User> users=userService.listUserForAddress(city);
+        return new ResponseEntity<>(users,HttpStatus.OK);
+    }
+    @GetMapping("/findAllByAgeAndName/{fromAge}/{toAge}")
+    public ResponseEntity<Iterable<User>> findAllByAgeAndName(@PathVariable String fromAge,@PathVariable String toAge,String name){
+        Iterable<User> users=userService.findAllByAgeAndName(fromAge,toAge,'%'+name+'%');
+        return new ResponseEntity<>(users,HttpStatus.OK);
+    }
+    @GetMapping("/findAllByAgeAndNameAndGender/{fromAge}/{toAge}/{gender}")
+    public ResponseEntity<Iterable<User>> findAllByAgeAndNameAndGender(@PathVariable String fromAge,@PathVariable String toAge,String name,@PathVariable String gender){
+        Iterable<User> users=userService.findAllByAgeAndNameAndGender(fromAge,toAge,'%'+name+'%',gender);
         return new ResponseEntity<>(users,HttpStatus.OK);
     }
 
