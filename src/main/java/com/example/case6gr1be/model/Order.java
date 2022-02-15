@@ -16,6 +16,13 @@ public class Order {
     private Date endTime;
     private double timeRent;
 
+    public Order(Date startTime, OrderStatus status, User provider, User renter) {
+        this.startTime = startTime;
+        this.status = status;
+        this.provider = provider;
+        this.renter = renter;
+    }
+
     @ManyToOne
     @JoinColumn(name = "status_id")
     private OrderStatus status;
@@ -29,6 +36,27 @@ public class Order {
     private User renter;
 
     public Order() {
+    }
+
+    public Order(Date startTime, double timeRent, User provider, User renter) {
+        this.timeRent = timeRent;
+        this.provider = provider;
+        this.renter = renter;
+    }
+
+    public Order(double timeRent, OrderStatus status, User provider, User renter) {
+        this.timeRent = timeRent;
+        this.status = status;
+        this.provider = provider;
+        this.renter = renter;
+    }
+
+    public Order(Date startTime, double timeRent, OrderStatus status, User provider, User renter) {
+        this.startTime = startTime;
+        this.timeRent = timeRent;
+        this.status = status;
+        this.provider = provider;
+        this.renter = renter;
     }
 
     public Order(Date startTime, Date endTime, double timeRent, OrderStatus status, User provider, User renter) {
