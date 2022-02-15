@@ -306,6 +306,11 @@ public class UserController {
         Iterable<User> users=userService.findAllByAgeAndNameAndGender(fromAge,toAge,'%'+name+'%',gender);
         return new ResponseEntity<>(users,HttpStatus.OK);
     }
+    @GetMapping("/findAllByAgeAndNameAndGenderAndCity/{fromAge}/{toAge}/{gender}/{city}")
+    public ResponseEntity<Iterable<User>> findAllByAgeAndNameAndGenderAndCity(@PathVariable String fromAge,@PathVariable String toAge,String name,@PathVariable String gender,@PathVariable String city){
+        Iterable<User> users=userService.findAllByAgeAndNameAndGenderAndCity(fromAge,toAge,'%'+name+'%',gender,city);
+        return new ResponseEntity<>(users,HttpStatus.OK);
+    }
 
     @GetMapping("/12serviceProvider")
     public ResponseEntity<Iterable<User>> serviceProvider(){
