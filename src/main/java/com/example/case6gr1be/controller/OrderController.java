@@ -83,7 +83,7 @@ public class OrderController {
                                 @Override
                                 public void accept(Order or) {
                                     if (order.getStartTime().getTime() > or.getStartTime().getTime() && order.getStartTime().getTime() > or.getEndTime().getTime()
-                                            || order.getEndTime().getTime() < or.getStartTime().getTime() && order.getEndTime().getTime() < or.getEndTime().getTime()) {
+                                            || order.getEndTime().getTime() < or.getStartTime().getTime() && order.getStartTime().getTime() < or.getStartTime().getTime()) {
                                         orderService.save(order);
                                         check.add("save done");
                                     }
@@ -104,9 +104,9 @@ public class OrderController {
                                 @Override
                                 public void accept(Order or) {
                                     if (order.getStartTime().getTime() > or.getStartTime().getTime() && order.getStartTime().getTime() > or.getEndTime().getTime()
-                                            || order.getEndTime().getTime() < or.getStartTime().getTime() && order.getEndTime().getTime() < or.getEndTime().getTime()) {
-                                        orderService.save(order);
-                                        check.add("save done");
+                                            || order.getEndTime().getTime() < or.getStartTime().getTime() && order.getStartTime().getTime() < or.getStartTime().getTime()) {
+                                    } else {
+                                        check.add("ss");
                                     }
                                 }
                             });
@@ -115,12 +115,13 @@ public class OrderController {
                 }
             }
         });
-
-        if (check.size() > 0) {
+        if (check.size() == 0) {
+            orderService.save(order);
+        }
+        if (check.size() == 0) {
             return true;
         }
         return false;
-
     }
 
     @GetMapping("/renter/{id}/orders")
