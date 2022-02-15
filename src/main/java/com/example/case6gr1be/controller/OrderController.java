@@ -15,6 +15,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.function.Consumer;
 
 @RestController
@@ -41,6 +42,9 @@ public class OrderController {
 
     @PostMapping("/order")
     public boolean saveCheck(@RequestBody Order order) {
+        Date sta = new Date();
+        sta.setTime(order.getStartTime().getTime() - 25180000);
+        order.setStartTime(sta);
         ArrayList<String> check = new ArrayList<>();
         Long time = (Long) Math.round(order.getTimeRent() * 3600000);
         Date end = new Date(time);
@@ -50,6 +54,7 @@ public class OrderController {
         float s = order.getStartTime().getTime();
         float e = order.getEndTime().getTime();
 //        order.setTimeRent(((e - s) / 3600000));
+        ArrayList<Order> orders = (ArrayList<Order>) orderService.findAllByProvider(order.getProvider());
         Iterable<ServiceProvided> provider = serviceProvidedService.findAllByIdUser(order.getProvider().getId());
         provider.forEach(new Consumer<ServiceProvided>() {
             @Override
@@ -58,24 +63,52 @@ public class OrderController {
                     if (order.getStartTime().getTime() >= order.getBookingTime().getTime()
                             && ((order.getEndTime().getTime() - order.getStartTime().getTime()) >= 1800000)
                     ) {
-                        orderService.save(order);
-                        check.add("save done");
+                        if (orders.isEmpty()) {
+                            orderService.save(order);
+                            check.add("save done");
+                        } else {
+                            orders.forEach(new Consumer<Order>() {
+                                @Override
+                                public void accept(Order or) {
+                                    if (order.getStartTime().getTime() > or.getStartTime().getTime() && order.getStartTime().getTime() > or.getEndTime().getTime()
+                                            || order.getEndTime().getTime() < or.getStartTime().getTime() && order.getEndTime().getTime() < or.getEndTime().getTime()) {
+                                        orderService.save(order);
+                                        check.add("save done");
+                                    }
+                                }
+                            });
+                        }
                     }
                 }
                 if (serviceProvided.getIdService() == 9) {
                     if (order.getStartTime().getTime() >= order.getBookingTime().getTime()
                             && ((order.getEndTime().getTime() - order.getStartTime().getTime()) >= 3600000)
                     ) {
-                        orderService.save(order);
-                        check.add("save done");
+                        if (orders.isEmpty()) {
+                            orderService.save(order);
+                            check.add("save done");
+                        } else {
+                            orders.forEach(new Consumer<Order>() {
+                                @Override
+                                public void accept(Order or) {
+                                    if (order.getStartTime().getTime() > or.getStartTime().getTime() && order.getStartTime().getTime() > or.getEndTime().getTime()
+                                            || order.getEndTime().getTime() < or.getStartTime().getTime() && order.getEndTime().getTime() < or.getEndTime().getTime()) {
+                                        orderService.save(order);
+                                        check.add("save done");
+                                    }
+                                }
+                            });
+                        }
                     }
                 }
             }
         });
+
         if (check.size() > 0) {
             return true;
         }
         return false;
+
     }
 
 }

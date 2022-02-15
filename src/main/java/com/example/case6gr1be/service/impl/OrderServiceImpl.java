@@ -1,6 +1,7 @@
 package com.example.case6gr1be.service.impl;
 
 import com.example.case6gr1be.model.Order;
+import com.example.case6gr1be.model.User;
 import com.example.case6gr1be.repository.OrderRepository;
 import com.example.case6gr1be.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +27,10 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void save(Order order) {
         orderRepository.save(order);
+    }
+
+    @Override
+    public Iterable<Order> findAllByProvider(User user) {
+        return orderRepository.findAllByProvider(user);
     }
 }
