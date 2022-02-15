@@ -233,6 +233,10 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAllByAgeAndNameAndGenderAndCity(fromAge,toAge,name,gender,city);
     }
 
+    @Override
+    public Iterable<User> findAllByAgeAndNameAndGenderAnd2City(String fromAge, String toAge, String name, String gender, String city, String city2) {
+        return userRepository.findAllByAgeAndNameAndGenderAnd2City(fromAge,toAge,name,gender,city,city2);
+    }
 
     @Override
     public Iterable<User> new12ServiceProvider() {
