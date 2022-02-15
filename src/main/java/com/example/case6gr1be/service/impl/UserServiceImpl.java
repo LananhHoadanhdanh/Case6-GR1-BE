@@ -228,4 +228,9 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAllByAgeAndNameAndGender(fromAge,toAge,name,gender);
     }
 
+
+    @Override
+    public Iterable<User> new12ServiceProvider() {
+        return userRepository.new12ServiceProvider();
+    }
 }
