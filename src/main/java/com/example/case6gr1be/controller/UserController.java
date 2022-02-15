@@ -308,12 +308,12 @@ public class UserController {
     }
     @GetMapping("/findAllByAgeAndNameAndGenderAndCity/{fromAge}/{toAge}/{gender}/{city}")
     public ResponseEntity<Iterable<User>> findAllByAgeAndNameAndGenderAndCity(@PathVariable String fromAge,@PathVariable String toAge,String name,@PathVariable String gender,@PathVariable String city){
-        Iterable<User> users=userService.findAllByAgeAndNameAndGenderAndCity(fromAge,toAge,'%'+name+'%',gender,city);
+        Iterable<User> users=userService.findAllByAgeAndNameAndGenderAndCity(fromAge,toAge,'%'+name+'%',gender,'%'+city+'%');
         return new ResponseEntity<>(users,HttpStatus.OK);
     }
-    @GetMapping("/findAllByAgeAndNameAndGenderAndCity/{fromAge}/{toAge}/{gender}/{city}/{city2}")
+    @GetMapping("/findAllByAgeAndNameAndGenderAnd2City/{fromAge}/{toAge}/{gender}/{city}/{city2}")
     public ResponseEntity<Iterable<User>> findAllByAgeAndNameAndGenderAnd2City(@PathVariable String fromAge,@PathVariable String toAge,String name,@PathVariable String gender,@PathVariable String city,@PathVariable String city2){
-        Iterable<User> users=userService.findAllByAgeAndNameAndGenderAnd2City(fromAge,toAge,'%'+name+'%',gender,city,city2);
+        Iterable<User> users=userService.findAllByAgeAndNameAndGenderAnd2City(fromAge,toAge,'%'+name+'%',gender,'%'+city+'%','%'+city2+'%');
         return new ResponseEntity<>(users,HttpStatus.OK);
     }
 
