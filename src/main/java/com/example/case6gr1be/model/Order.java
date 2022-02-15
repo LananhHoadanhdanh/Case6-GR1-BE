@@ -16,6 +16,13 @@ public class Order {
     private Date endTime;
     private double timeRent;
 
+    public Order(Date startTime, OrderStatus status, User provider, User renter) {
+        this.startTime = startTime;
+        this.status = status;
+        this.provider = provider;
+        this.renter = renter;
+    }
+
     @ManyToOne
     @JoinColumn(name = "status_id")
     private OrderStatus status;

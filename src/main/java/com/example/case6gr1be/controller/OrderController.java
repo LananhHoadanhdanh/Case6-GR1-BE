@@ -42,11 +42,14 @@ public class OrderController {
     @PostMapping("/order")
     public boolean saveCheck(@RequestBody Order order) {
         ArrayList<String> check = new ArrayList<>();
-
+        Long time = (Long) Math.round(order.getTimeRent() * 3600000);
+        Date end = new Date(time);
+        end.setTime(order.getStartTime().getTime() + end.getTime());
         order.setBookingTime(new Date());
+        order.setEndTime(end);
         float s = order.getStartTime().getTime();
         float e = order.getEndTime().getTime();
-        order.setTimeRent(((e - s) / 3600000));
+//        order.setTimeRent(((e - s) / 3600000));
         Iterable<ServiceProvided> provider = serviceProvidedService.findAllByIdUser(order.getProvider().getId());
         provider.forEach(new Consumer<ServiceProvided>() {
             @Override
