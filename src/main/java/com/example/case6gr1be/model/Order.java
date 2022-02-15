@@ -2,6 +2,8 @@ package com.example.case6gr1be.model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "order_table")
@@ -9,9 +11,10 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Timestamp bookingTime;
-    private Timestamp startTime;
-    private Timestamp endTime;
+    private Date bookingTime;
+    private Date startTime;
+    private Date endTime;
+    private double timeRent;
 
     @ManyToOne
     @JoinColumn(name = "status_id")
@@ -28,37 +31,63 @@ public class Order {
     public Order() {
     }
 
-    public Order(Timestamp bookingTime, Timestamp startTime, Timestamp endTime, OrderStatus status, User provider, User renter) {
-        this.bookingTime = bookingTime;
+    public Order(Date startTime, Date endTime, double timeRent, OrderStatus status, User provider, User renter) {
         this.startTime = startTime;
         this.endTime = endTime;
+        this.timeRent = timeRent;
         this.status = status;
         this.provider = provider;
         this.renter = renter;
     }
 
-    public Timestamp getBookingTime() {
+    public Order(Date bookingTime, Date startTime, Date endTime, double timeRent, OrderStatus status, User provider, User renter) {
+        this.bookingTime = bookingTime;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.timeRent = timeRent;
+        this.status = status;
+        this.provider = provider;
+        this.renter = renter;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Date getBookingTime() {
         return bookingTime;
     }
 
-    public void setBookingTime(Timestamp bookingTime) {
+    public void setBookingTime(Date bookingTime) {
         this.bookingTime = bookingTime;
     }
 
-    public Timestamp getStartTime() {
+    public Date getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Timestamp startTime) {
+    public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
 
-    public Timestamp getEndTime() {
+    public Date getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Timestamp endTime) {
+    public void setEndTime(Date endTime) {
         this.endTime = endTime;
+    }
+
+    public double getTimeRent() {
+        return timeRent;
+    }
+
+    public void setTimeRent(double timeRent) {
+        this.timeRent = timeRent;
     }
 
     public OrderStatus getStatus() {
@@ -84,14 +113,4 @@ public class Order {
     public void setRenter(User renter) {
         this.renter = renter;
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-
 }

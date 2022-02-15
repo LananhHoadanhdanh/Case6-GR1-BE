@@ -9,7 +9,10 @@ import com.example.case6gr1be.service.impl.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -162,60 +165,8 @@ public class UserController {
         return new ResponseEntity<>(userOptional.get(), HttpStatus.OK);
     }
 
-    @PutMapping("/users/{id}/lockAccount")
-    public ResponseEntity<User>lockAccount(@PathVariable Long id) {
-        Optional<User> userOptional = userService.findById(id);
-        User user = userOptional.get();
-
-        Optional<StatusUser> statusUser = statusUserService.findById(3L);
-        StatusUser status = statusUser.get();
-
-        user.setStatus(status);
-        userService.save(user);
-        return new ResponseEntity<>(user, HttpStatus.OK);
-    }
-
-    @PutMapping("/users/{id}/updateVipAccount")
-    public ResponseEntity<User>updateVipAccount(@PathVariable Long id) {
-        Optional<User> userOptional = userService.findById(id);
-        User user = userOptional.get();
-
-        Optional<StatusUser> statusUser = statusUserService.findById(4L);
-        StatusUser status = statusUser.get();
-
-        user.setStatus(status);
-        userService.save(user);
-        return new ResponseEntity<>(user, HttpStatus.OK);
-    }
-
-    @PutMapping("/users/{id}/browseAccount")
-    public ResponseEntity<User>browseAccounts(@PathVariable Long id) {
-        Optional<User> userOptional = userService.findById(id);
-        User user = userOptional.get();
-
-        Optional<StatusUser> statusUser = statusUserService.findById(2L);
-        StatusUser status = statusUser.get();
-
-        user.setStatus(status);
-        userService.save(user);
-        return new ResponseEntity<>(user, HttpStatus.OK);
-    }
-
-    @PutMapping("/users/{id}/pauseAccount")
-    public ResponseEntity<User>pauseAccounts(@PathVariable Long id) {
-        Optional<User> userOptional = userService.findById(id);
-        User user = userOptional.get();
-
-        Optional<StatusUser> statusUser = statusUserService.findById(5L);
-        StatusUser status = statusUser.get();
-
-        user.setStatus(status);
-        userService.save(user);
-        return new ResponseEntity<>(user, HttpStatus.OK);
-    }
-
     @PutMapping("/users/{id}/increaseViews")
-    public ResponseEntity<User>increaseViews(@PathVariable Long id) {
+    public ResponseEntity<User> increaseViews(@PathVariable Long id) {
         User user = userService.findById(id).get();
         int view = user.getView() + 1;
         user.setView(view);
@@ -237,12 +188,13 @@ public class UserController {
     @PostMapping("/loadImage")
     public ResponseEntity<Image> loadImage(@RequestBody Image image) {
         imageService.save(image);
-        return new ResponseEntity<>(image, HttpStatus.OK);}
+        return new ResponseEntity<>(image, HttpStatus.OK);
+    }
 
     @GetMapping("/12newServiceProvider")
-    public ResponseEntity<Iterable<User>> newServiceProvider(){
-        Iterable<User> newServiceProvider=userService.newServiceProvider();
-        return new ResponseEntity<>(newServiceProvider,HttpStatus.OK);
+    public ResponseEntity<Iterable<User>> newServiceProvider() {
+        Iterable<User> newServiceProvider = userService.newServiceProvider();
+        return new ResponseEntity<>(newServiceProvider, HttpStatus.OK);
     }
 //    @GetMapping("/findAllImageByUser/{id}")
 //    public ResponseEntity<Iterable<Image>> findAllImageByUser(@PathVariable Long id){
@@ -250,14 +202,14 @@ public class UserController {
 //        return new ResponseEntity<>(images,HttpStatus.OK);
 //    }
     @GetMapping("/findAllImageByUser/{id}")
-    public ResponseEntity<Iterable<Image>> findAllImageByUser(@PathVariable Long id){
-        Iterable<Image> images=imageService.findAllImageByUserId(id);
-        return new ResponseEntity<>(images,HttpStatus.OK);
+    public ResponseEntity<Iterable<Image>> findAllImageByUser(@PathVariable Long id) {
+        Iterable<Image> images = imageService.findAllImageByUserId(id);
+        return new ResponseEntity<>(images, HttpStatus.OK);
     }
     @GetMapping("/activeAndVipUsers")
-    public ResponseEntity<Iterable<User>> getActiveAndVipUsers(){
+    public ResponseEntity<Iterable<User>> getActiveAndVipUsers() {
         Iterable<User> users = userService.getActiveAndVipUsers();
-        return new ResponseEntity<>(users,HttpStatus.OK);
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @GetMapping("/usersByView")
@@ -284,20 +236,75 @@ public class UserController {
     }
 
     @GetMapping("/list6UserVip")
-    public ResponseEntity<Iterable<User>> list6UserVip(){
-        Iterable<User> users=userService.find6UserVIP();
+    public ResponseEntity<Iterable<User>> list6UserVip() {
+        Iterable<User> users = userService.find6UserVIP();
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    @GetMapping("/list12UserSuitableForGender/{gender}")
+    public ResponseEntity<Iterable<User>> list12UserSuitableForGender(@PathVariable String gender) {
+        if (gender.equals("male")) {
+            gender = "female";
+        } else if (gender.equals("female")) {
+            gender = "male";
+        }
+        Iterable<User> users = userService.list12UserSuitableForGender(gender);
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    @GetMapping("/findUserAllByFullName")
+    public ResponseEntity<Iterable<User>> findUserAllByFullName(String queryName) {
+        Iterable<User> users = userService.findUserAllByFullName('%' + queryName + '%');
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+    @GetMapping("/findByGender/{gender}")
+    public ResponseEntity<Iterable<User>> findByGender(@PathVariable String gender){
+        Iterable<User> users = userService.list12UserSuitableForGender(gender);
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+    @GetMapping("/findUserAllByAge/{formAge}/{toAge}")
+    public ResponseEntity<Iterable<User>> findAllByAge(@PathVariable String formAge,@PathVariable String toAge){
+        Iterable<User> users=userService.findAllByAgeTo(formAge,toAge);
         return new ResponseEntity<>(users,HttpStatus.OK);
     }
-    @GetMapping("/list12UserSuitableForGender/{gender}")
-    public ResponseEntity<Iterable<User>> list12UserSuitableForGender(@PathVariable String gender){
-        if(gender.equals("male")){
-            gender="female";
-        }else if(gender.equals("female")) {
-            gender="male";
-        }
-
-
-        Iterable<User> users=userService.list12UserSuitableForGender(gender);
+    @GetMapping("/findAllByRentCountDesc")
+    public ResponseEntity<Iterable<User>> findAllByRentCountDesc(){
+        Iterable<User> users=userService.findAllByRentCountDesc();
+        return new ResponseEntity<>(users,HttpStatus.OK);
+    }
+    @GetMapping("/findAllByRentCountAsc")
+    public ResponseEntity<Iterable<User>> findAllByRentCountAsc(){
+        Iterable<User> users=userService.findAllByRentCountAsc();
+        return new ResponseEntity<>(users,HttpStatus.OK);
+    }
+    @GetMapping("/findAllByViewDesc")
+    public ResponseEntity<Iterable<User>> findAllByViewDesc(){
+        Iterable<User> users=userService.findAllByViewDesc();
+        return new ResponseEntity<>(users,HttpStatus.OK);
+    }
+    @GetMapping("/findAllByViewAsc")
+    public ResponseEntity<Iterable<User>> findAllByViewAsc(){
+        Iterable<User> users=userService.findAllByViewAsc();
+        return new ResponseEntity<>(users,HttpStatus.OK);
+    }
+    @GetMapping("/findAllBy2City/{city}/{city2}")
+    public ResponseEntity<Iterable<User>> findAllByCity(@PathVariable String city,@PathVariable String city2){
+        Iterable<User> users=userService.listUserFor2Address(city,city2);
+        return new ResponseEntity<>(users,HttpStatus.OK);
+    }
+    @GetMapping("/findAllByCity/{city}")
+    public ResponseEntity<Iterable<User>> findAllBy2City(@PathVariable String city){
+        Iterable<User> users=userService.listUserForAddress(city);
+        return new ResponseEntity<>(users,HttpStatus.OK);
+    }
+    @GetMapping("/findAllByAgeAndName/{fromAge}/{toAge}")
+    public ResponseEntity<Iterable<User>> findAllByAgeAndName(@PathVariable String fromAge,@PathVariable String toAge,String name){
+        Iterable<User> users=userService.findAllByAgeAndName(fromAge,toAge,'%'+name+'%');
+        return new ResponseEntity<>(users,HttpStatus.OK);
+    }
+    @GetMapping("/findAllByAgeAndNameAndGender/{fromAge}/{toAge}/{gender}")
+    public ResponseEntity<Iterable<User>> findAllByAgeAndNameAndGender(@PathVariable String fromAge,@PathVariable String toAge,String name,@PathVariable String gender){
+        Iterable<User> users=userService.findAllByAgeAndNameAndGender(fromAge,toAge,'%'+name+'%',gender);
         return new ResponseEntity<>(users,HttpStatus.OK);
     }
 
@@ -306,4 +313,5 @@ public class UserController {
         Iterable<User> newServiceProvider=userService.new12ServiceProvider();
         return new ResponseEntity<>(newServiceProvider,HttpStatus.OK);
     }
+
 }
