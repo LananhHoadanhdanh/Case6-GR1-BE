@@ -98,7 +98,6 @@ public class OrderController {
                     ) {
                         if (orders.isEmpty()) {
                             orderService.save(order);
-                            check.add("save done");
                         } else {
                             orders.forEach(new Consumer<Order>() {
                                 @Override
