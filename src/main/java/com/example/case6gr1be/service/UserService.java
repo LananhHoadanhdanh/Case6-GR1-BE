@@ -53,17 +53,19 @@ public interface UserService extends UserDetailsService {
     Iterable<User> findAllByViewDesc();
     Iterable<User> findAllByRentCountDesc();
     Iterable<User> findAllByRentCountAsc();
-    Iterable<User> listUserFor2Address(String city, String city2);
-    Iterable<User> listUserForAddress( String city);
-    Iterable <User> findAllByAgeAndName( String fromAge,String toAge, String name);
-    Iterable<User> findAllByAgeAndNameAndGender( String fromAge, String toAge, String name, String gender);
-    Iterable<User> findAllByAgeAndNameAndGenderAndCity(String fromAge, String toAge, String name, String gender,String city);
-    Iterable<User> findAllByAgeAndNameAndGenderAnd2City(String fromAge, String toAge, String name, String gender,String city,String city2);
-    Iterable<User> findAllByAgeAndNameAndGenderAnd2CityViewDesc(String fromAge, String toAge, String name, String gender,String city,String city2);
-    Iterable<User> findAllByAgeAndNameAndGenderAnd2CityViewAsc(String fromAge, String toAge, String name, String gender,String city,String city2);
-    Iterable<User> findAllByAgeAndNameAndGenderAnd2CityRentAsc(String fromAge, String toAge, String name, String gender,String city,String city2);
-    Iterable<User> findAllByAgeAndNameAndGenderAnd2CityRentDesc(String fromAge, String toAge, String name, String gender,String city,String city2);
 
+    Iterable<User> searchAllViewDesc( String fromAge, String toAge,
+                                      String name, String city, String city2,
+                                      String gender);
+    Iterable<User> searchAllCityViewDesc( String fromAge, String toAge,
+                                      String name, String city,
+                                      String gender);
+    Iterable<User> searchAllViewAsc( String fromAge, String toAge,
+                                      String name, String city, String city2,
+                                      String gender);
+    Iterable<User> searchAllCityViewAsc( String fromAge, String toAge,
+                                      String name, String city,
+                                      String gender);
 
     Iterable<User> new12ServiceProvider();
 

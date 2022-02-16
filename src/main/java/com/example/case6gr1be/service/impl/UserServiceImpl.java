@@ -208,57 +208,26 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAllByRentCountAsc();
     }
 
+
+
     @Override
-    public Iterable<User> listUserFor2Address(String city, String city2) {
-        return userRepository.listUserFor2Address(city,city2);
+    public Iterable<User> searchAllViewDesc(String fromAge, String toAge, String name, String city, String city2, String gender) {
+        return userRepository.searchAllViewDesc(fromAge,toAge,name,city,city2,gender);
     }
 
     @Override
-    public Iterable<User> listUserForAddress(String city) {
-        return userRepository.listUserForAddress(city);
+    public Iterable<User> searchAllCityViewDesc(String fromAge, String toAge, String name, String city, String gender) {
+        return userRepository.searchAllCityViewDesc(fromAge,toAge,name,city,gender);
+
+    }
+    @Override
+    public Iterable<User> searchAllViewAsc(String fromAge, String toAge, String name, String city, String city2, String gender) {
+        return userRepository.searchAllViewDesc(fromAge,toAge,name,city,city2,gender);
     }
 
     @Override
-    public Iterable<User> findAllByAgeAndName(String fromAge, String toAge, String name) {
-        return userRepository.findAllByAgeAndName(fromAge,toAge,name);
-    }
-
-    @Override
-    public Iterable<User> findAllByAgeAndNameAndGender(String fromAge, String toAge, String name, String gender) {
-        return userRepository.findAllByAgeAndNameAndGender(fromAge,toAge,name,gender);
-    }
-
-    @Override
-    public Iterable<User> findAllByAgeAndNameAndGenderAndCity(String fromAge, String toAge, String name, String gender, String city) {
-        return userRepository.findAllByAgeAndNameAndGenderAndCity(fromAge,toAge,name,gender,city);
-    }
-
-    @Override
-    public Iterable<User> findAllByAgeAndNameAndGenderAnd2City(String fromAge, String toAge, String name, String gender, String city, String city2) {
-        return userRepository.findAllByAgeAndNameAndGenderAnd2City(fromAge,toAge,name,gender,city,city2);
-    }
-
-    @Override
-    public Iterable<User> findAllByAgeAndNameAndGenderAnd2CityViewDesc(String fromAge, String toAge, String name, String gender, String city, String city2) {
-        return userRepository.findAllByAgeAndNameAndGenderAnd2CityViewDesc(fromAge,toAge,name,gender,city,city2);
-
-    }
-
-    @Override
-    public Iterable<User> findAllByAgeAndNameAndGenderAnd2CityViewAsc(String fromAge, String toAge, String name, String gender, String city, String city2) {
-        return userRepository.findAllByAgeAndNameAndGenderAnd2CityViewAsc(fromAge,toAge,name,gender,city,city2);
-
-    }
-
-    @Override
-    public Iterable<User> findAllByAgeAndNameAndGenderAnd2CityRentAsc(String fromAge, String toAge, String name, String gender, String city, String city2) {
-        return userRepository.findAllByAgeAndNameAndGenderAnd2CityRentAsc(fromAge,toAge,name,gender,city,city2);
-
-    }
-
-    @Override
-    public Iterable<User> findAllByAgeAndNameAndGenderAnd2CityRentDesc(String fromAge, String toAge, String name, String gender, String city, String city2) {
-        return userRepository.findAllByAgeAndNameAndGenderAnd2CityRentDesc(fromAge,toAge,name,gender,city,city2);
+    public Iterable<User> searchAllCityViewAsc(String fromAge, String toAge, String name, String city, String gender) {
+        return userRepository.searchAllCityViewDesc(fromAge,toAge,name,city,gender);
 
     }
 
