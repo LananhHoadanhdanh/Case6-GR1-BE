@@ -239,6 +239,30 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Iterable<User> findAllByAgeAndNameAndGenderAnd2CityViewDesc(String fromAge, String toAge, String name, String gender, String city, String city2) {
+        return userRepository.findAllByAgeAndNameAndGenderAnd2CityViewDesc(fromAge,toAge,name,gender,city,city2);
+
+    }
+
+    @Override
+    public Iterable<User> findAllByAgeAndNameAndGenderAnd2CityViewAsc(String fromAge, String toAge, String name, String gender, String city, String city2) {
+        return userRepository.findAllByAgeAndNameAndGenderAnd2CityViewAsc(fromAge,toAge,name,gender,city,city2);
+
+    }
+
+    @Override
+    public Iterable<User> findAllByAgeAndNameAndGenderAnd2CityRentAsc(String fromAge, String toAge, String name, String gender, String city, String city2) {
+        return userRepository.findAllByAgeAndNameAndGenderAnd2CityRentAsc(fromAge,toAge,name,gender,city,city2);
+
+    }
+
+    @Override
+    public Iterable<User> findAllByAgeAndNameAndGenderAnd2CityRentDesc(String fromAge, String toAge, String name, String gender, String city, String city2) {
+        return userRepository.findAllByAgeAndNameAndGenderAnd2CityRentDesc(fromAge,toAge,name,gender,city,city2);
+
+    }
+
+    @Override
     public Iterable<User> new12ServiceProvider() {
         return userRepository.new12ServiceProvider();
     }

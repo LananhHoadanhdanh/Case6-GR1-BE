@@ -59,6 +59,10 @@ public interface UserService extends UserDetailsService {
     Iterable<User> findAllByAgeAndNameAndGender( String fromAge, String toAge, String name, String gender);
     Iterable<User> findAllByAgeAndNameAndGenderAndCity(String fromAge, String toAge, String name, String gender,String city);
     Iterable<User> findAllByAgeAndNameAndGenderAnd2City(String fromAge, String toAge, String name, String gender,String city,String city2);
+    Iterable<User> findAllByAgeAndNameAndGenderAnd2CityViewDesc(String fromAge, String toAge, String name, String gender,String city,String city2);
+    Iterable<User> findAllByAgeAndNameAndGenderAnd2CityViewAsc(String fromAge, String toAge, String name, String gender,String city,String city2);
+    Iterable<User> findAllByAgeAndNameAndGenderAnd2CityRentAsc(String fromAge, String toAge, String name, String gender,String city,String city2);
+    Iterable<User> findAllByAgeAndNameAndGenderAnd2CityRentDesc(String fromAge, String toAge, String name, String gender,String city,String city2);
 
 
     Iterable<User> new12ServiceProvider();

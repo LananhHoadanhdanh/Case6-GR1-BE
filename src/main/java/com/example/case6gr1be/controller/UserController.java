@@ -316,6 +316,26 @@ public class UserController {
         Iterable<User> users=userService.findAllByAgeAndNameAndGenderAnd2City(fromAge,toAge,'%'+name+'%',gender,'%'+city+'%','%'+city2+'%');
         return new ResponseEntity<>(users,HttpStatus.OK);
     }
+    @GetMapping("/findAllByAgeAndNameAndGenderAnd2CityViewDesc/{fromAge}/{toAge}/{gender}/{city}/{city2}")
+    public ResponseEntity<Iterable<User>> findAllByAgeAndNameAndGenderAnd2CityViewDesc(@PathVariable String fromAge,@PathVariable String toAge,String name,@PathVariable String gender,@PathVariable String city,@PathVariable String city2){
+        Iterable<User> users=userService.findAllByAgeAndNameAndGenderAnd2CityViewDesc(fromAge,toAge,'%'+name+'%',gender,'%'+city+'%','%'+city2+'%');
+        return new ResponseEntity<>(users,HttpStatus.OK);
+    }
+    @GetMapping("/findAllByAgeAndNameAndGenderAnd2CityViewAsc/{fromAge}/{toAge}/{gender}/{city}/{city2}")
+    public ResponseEntity<Iterable<User>> findAllByAgeAndNameAndGenderAnd2CityViewAsc(@PathVariable String fromAge,@PathVariable String toAge,String name,@PathVariable String gender,@PathVariable String city,@PathVariable String city2){
+        Iterable<User> users=userService.findAllByAgeAndNameAndGenderAnd2CityViewAsc(fromAge,toAge,'%'+name+'%',gender,'%'+city+'%','%'+city2+'%');
+        return new ResponseEntity<>(users,HttpStatus.OK);
+    }
+    @GetMapping("/findAllByAgeAndNameAndGenderAnd2CityRentAsc/{fromAge}/{toAge}/{gender}/{city}/{city2}")
+    public ResponseEntity<Iterable<User>> findAllByAgeAndNameAndGenderAnd2CityRentAsc(@PathVariable String fromAge,@PathVariable String toAge,String name,@PathVariable String gender,@PathVariable String city,@PathVariable String city2){
+        Iterable<User> users=userService.findAllByAgeAndNameAndGenderAnd2CityRentAsc(fromAge,toAge,'%'+name+'%',gender,'%'+city+'%','%'+city2+'%');
+        return new ResponseEntity<>(users,HttpStatus.OK);
+    }
+    @GetMapping("/findAllByAgeAndNameAndGenderAnd2CityRentDesc/{fromAge}/{toAge}/{gender}/{city}/{city2}")
+    public ResponseEntity<Iterable<User>> findAllByAgeAndNameAndGenderAnd2CityRentDesc(@PathVariable String fromAge,@PathVariable String toAge,String name,@PathVariable String gender,@PathVariable String city,@PathVariable String city2){
+        Iterable<User> users=userService.findAllByAgeAndNameAndGenderAnd2CityRentDesc(fromAge,toAge,'%'+name+'%',gender,'%'+city+'%','%'+city2+'%');
+        return new ResponseEntity<>(users,HttpStatus.OK);
+    }
 
     @GetMapping("/12serviceProvider")
     public ResponseEntity<Iterable<User>> serviceProvider(){
