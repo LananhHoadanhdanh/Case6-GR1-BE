@@ -18,4 +18,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     Iterable<Order> getAllOrderByProvider(@Param("id") Long id);
 
     Iterable<Order> findAllByProvider(User user);
+
+    @Query("select o from Order o where o.status.id = 3")
+    Iterable<Order> getAllCompletedOrder();
 }

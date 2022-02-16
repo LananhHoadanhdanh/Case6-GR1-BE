@@ -9,4 +9,5 @@ public interface OrderService extends GeneralService<Order>{
     Iterable<Order> getAllOrderByProvider(Long id);
     void removeOrder(Long id);
     Iterable<Order> findAllByProvider(User user);
+    Iterable<Order> getAllCompletedOrder();
 }
