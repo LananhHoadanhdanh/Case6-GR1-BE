@@ -6,23 +6,16 @@ import com.example.case6gr1be.service.OrderStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.example.case6gr1be.model.Order;
 import com.example.case6gr1be.model.ServiceProvided;
-import com.example.case6gr1be.service.OrderService;
 import com.example.case6gr1be.service.ServiceProvidedService;
 import com.example.case6gr1be.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.function.Consumer;
 import java.util.Optional;
 
@@ -53,7 +46,7 @@ public class OrderController {
     }
 
     @PostMapping("/order")
-    public boolean saveCheck(@RequestBody Order order) {
+    public int saveCheck(@RequestBody Order order) {
         Date sta = new Date();
         sta.setTime(order.getStartTime().getTime() - 25180000);
         order.setStartTime(sta);
@@ -73,29 +66,7 @@ public class OrderController {
             public void accept(ServiceProvided serviceProvided) {
                 if (serviceProvided.getIdService() == 8) {
                     if (order.getStartTime().getTime() >= order.getBookingTime().getTime()
-                            && ((order.getEndTime().getTime() - order.getStartTime().getTime()) >= 1800000)
-                    ) {
-                        if (orders.isEmpty()) {
-                            orderService.save(order);
-                            check.add("save done");
-                        } else {
-                            orders.forEach(new Consumer<Order>() {
-                                @Override
-                                public void accept(Order or) {
-                                    if (order.getStartTime().getTime() > or.getStartTime().getTime() && order.getStartTime().getTime() > or.getEndTime().getTime()
-                                            || order.getEndTime().getTime() < or.getStartTime().getTime() && order.getStartTime().getTime() < or.getStartTime().getTime()) {
-                                        orderService.save(order);
-                                        check.add("save done");
-                                    }
-                                }
-                            });
-                        }
-                    }
-                }
-                if (serviceProvided.getIdService() == 9) {
-                    if (order.getStartTime().getTime() >= order.getBookingTime().getTime()
-                            && ((order.getEndTime().getTime() - order.getStartTime().getTime()) >= 3600000)
-                    ) {
+                            && ((order.getEndTime().getTime() - order.getStartTime().getTime()) >= 1800000)) {
                         if (orders.isEmpty()) {
                             orderService.save(order);
                         } else {
@@ -106,21 +77,52 @@ public class OrderController {
                                             || order.getEndTime().getTime() < or.getStartTime().getTime() && order.getStartTime().getTime() < or.getStartTime().getTime()) {
                                     } else {
                                         check.add("ss");
+                                        check.add("s1s");
                                     }
                                 }
                             });
                         }
+                    } else {
+                        check.add("ss");
+                    }
+                }
+                if (serviceProvided.getIdService() == 9) {
+                    if (order.getStartTime().getTime() >= order.getBookingTime().getTime()
+                            && ((order.getEndTime().getTime() - order.getStartTime().getTime()) >= 3600000)) {
+                        if (orders.isEmpty()) {
+                            orderService.save(order);
+                        } else {
+                            orders.forEach(new Consumer<Order>() {
+                                @Override
+                                public void accept(Order or) {
+                                    if (order.getStartTime().getTime() > or.getStartTime().getTime() && order.getStartTime().getTime() > or.getEndTime().getTime()
+                                            || order.getEndTime().getTime() < or.getStartTime().getTime() && order.getStartTime().getTime() < or.getStartTime().getTime()) {
+                                    } else {
+                                        check.add("ss");
+                                        check.add("s11s");
+                                    }
+                                }
+                            });
+                        }
+                    } else {
+                        check.add("ss");
                     }
                 }
             }
         });
         if (check.size() == 0) {
             orderService.save(order);
+            return 1;
+        } else {
+            if (check.size() == 1) {
+                return 2;
+            } else {
+                if (check.size() > 1) {
+                    return 3;
+                }
+            }
         }
-        if (check.size() == 0) {
-            return true;
-        }
-        return false;
+        return 0;
     }
 
     @GetMapping("/renter/{id}/orders")
