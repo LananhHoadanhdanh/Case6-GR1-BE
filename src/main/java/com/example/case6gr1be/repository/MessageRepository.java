@@ -15,6 +15,6 @@ public interface MessageRepository  extends JpaRepository<Message,Long> {
     Iterable<Message> getAllMessByRenter(@Param("id") Long id);
     @Query("select o from Message o where o.idUs.id = :id group by o.idPro")
     Iterable<Message> getMessByRenter(@Param("id") Long id);
-    @Query("select o from Message o where o.idPro.id = :idPro and o.idUs.id = :idRe")
+    @Query("select o from Message o where o.idPro.id = :idPro and o.idUs.id = :idRe order by o.id asc ")
     Iterable<Message> getMess(@Param("idPro") Long idPro,@Param("idRe") Long idRe);
 }

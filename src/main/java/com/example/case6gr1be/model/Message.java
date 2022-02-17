@@ -1,6 +1,7 @@
 package com.example.case6gr1be.model;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class Message {
@@ -15,6 +16,15 @@ public class Message {
     private User idUs;
     @Column(length = 1000)
     private String content;
+    private Date sent;
+
+    public Date getSent() {
+        return sent;
+    }
+
+    public void setSent(Date sent) {
+        this.sent = sent;
+    }
 
     public User getIdPro() {
         return idPro;

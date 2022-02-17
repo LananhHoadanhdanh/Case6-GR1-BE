@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.Optional;
 
 @RestController
@@ -22,6 +23,7 @@ public class MessageController {
 
     @PostMapping("/mess")
     public boolean add(@RequestBody Message message) {
+        message.setSent(new Date());
         messageService.save(message);
         return true;
     }
