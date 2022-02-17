@@ -4,6 +4,7 @@ import com.example.case6gr1be.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigInteger;
@@ -91,59 +92,57 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "and (status_user_id = 4 or status_user_id = 2) order by  rent_count desc ", nativeQuery = true)
     Iterable<User> findAllByRentCountDesc();
 
-    @Query(value = "select * from user_table where user_table.id in (select user_id\n" +
-            "from (select user_id\n" +
-            "from user_role  group by user_id\n" +
-            "having count(user_id) >= 2) as dem_role) and (status_user_id = 4 or status_user_id = 2)" +
-            " and user_table.city like :city order by id desc", nativeQuery = true)
-    Iterable<User> listUserForAddress(@Param("city") String city);
 
-    @Query(value = "select * from user_table where user_table.id in (select user_id\n" +
-            "from (select user_id\n" +
-            "from user_role  group by user_id\n" +
-            "having count(user_id) >= 2) as dem_role) and (status_user_id = 4 or status_user_id = 2) " +
-            "and (user_table.city like :city or user_table.city like :city2 )order by id desc", nativeQuery = true)
-    Iterable<User> listUserFor2Address(@Param("city") String city,@Param("city2") String city2);
 
-    @Query(value = "select * from user_table where user_table.id in (select user_id\n" +
-            "from (select user_id\n" +
-            "from user_role  group by user_id\n" +
-            "having count(user_id) >= 2) as dem_role) and (status_user_id = 4 or status_user_id = 2)\n" +
-            "and (user_table.age>= :fromAge and user_table.age<= :toAge) " +
-            "and  user_table.full_name like :name",nativeQuery = true)
-    Iterable <User> findAllByAgeAndName(@Param("fromAge") String fromAge,@Param("toAge") String toAge,@Param("name") String name);
 
-    @Query(value = "select * from user_table where user_table.id in (select user_id\n" +
-            "from (select user_id\n" +
-            "from user_role  group by user_id\n" +
-            "having count(user_id) >= 2) as dem_role) and (status_user_id = 4 or status_user_id = 2)\n" +
-            "and (user_table.age>= :fromAge and user_table.age<= :toAge)\n" +
-            "and  user_table.full_name like :name \n" +
-            "and user_table.gender like :gender",nativeQuery = true)
-    Iterable<User> findAllByAgeAndNameAndGender(@Param("fromAge") String fromAge,@Param("toAge") String toAge,
-                                                @Param("name") String name,@Param("gender") String gender);
-    @Query(value = "select * from user_table where user_table.id in (select user_id\n" +
-            "from (select user_id\n" +
-            "from user_role  group by user_id\n" +
-            "having count(user_id) >= 2) as dem_role) and (status_user_id = 4 or status_user_id = 2)\n" +
-            "                           and (user_table.age>= :fromAge and user_table.age<= :toAge )\n" +
-            "                           and  user_table.full_name like :name \n" +
-            "                           and user_table.gender like :gender \n" +
-            "                           and user_table.city like :city ",nativeQuery = true)
-    Iterable<User> findAllByAgeAndNameAndGenderAndCity(@Param("fromAge") String fromAge,@Param("toAge") String toAge,
-                                                       @Param("name") String name,@Param("gender") String gender,@Param("city") String city);
+    @Query(value = "select * from ((select * from ((select * from (select * from (select * from user_table\n" +
+            "                                                              where (user_table.id in (select user_id from\n" +
+            "                                                                  (select user_id from user_role group by user_id having count(user_id) >= 2)\n" +
+            "                                                                      as dem_role)) and (status_user_id = 2 or status_user_id = 4) order by id)\n" +
+            "                                                                 as all_provider where full_name like :name)\n" +
+            "                                                  as find_by_name where age between :fromAge and :toAge))\n" +
+            "                                  as find_by_age where gender like :gender))\n" +
+            "                  as find_by_gender where (city like :city or city like :city2 )order by rent_count desc",nativeQuery = true)
+    Iterable<User> searchAllViewDesc(@Param("fromAge") String fromAge,@Param("toAge") String toAge,
+                                     @Param("name") String name,@Param("city") String city,@Param("city2") String city2,
+                                     @Param("gender") String gender);
 
-    @Query(value = "select * from user_table where user_table.id in (select user_id\n" +
-            "from (select user_id\n" +
-            "from user_role  group by user_id\n" +
-            "having count(user_id) >= 2) as dem_role) and (status_user_id = 4 or status_user_id = 2)\n" +
-            "                           and (user_table.age>= :fromAge and user_table.age<= :toAge )\n" +
-            "                           and  user_table.full_name like :name \n" +
-            "                           and user_table.gender like :gender \n" +
-            "                           and (user_table.city like :city or user_table.city like :city2 ) ",nativeQuery = true)
-    Iterable<User> findAllByAgeAndNameAndGenderAnd2City(@Param("fromAge") String fromAge,@Param("toAge") String toAge,
-                                                       @Param("name") String name,@Param("gender") String gender,
-                                                        @Param("city") String city,@Param("city2") String city2);
+    @Query(value = "select * from ((select * from ((select * from (select * from (select * from user_table\n" +
+            "                                                              where (user_table.id in (select user_id from\n" +
+            "                                                                  (select user_id from user_role group by user_id having count(user_id) >= 2)\n" +
+            "                                                                      as dem_role)) and (status_user_id = 2 or status_user_id = 4) order by id)\n" +
+            "                                                                 as all_provider where full_name like :name)\n" +
+            "                                                  as find_by_name where age between :fromAge and :toAge))\n" +
+            "                                  as find_by_age where gender like :gender))\n" +
+            "                  as find_by_gender where (city like :city )order by rent_count desc",nativeQuery = true)
+    Iterable<User> searchAllCityViewDesc(@Param("fromAge") String fromAge,@Param("toAge") String toAge,
+                                     @Param("name") String name,@Param("city") String city,
+                                     @Param("gender") String gender);
+
+
+    @Query(value = "select * from ((select * from ((select * from (select * from (select * from user_table\n" +
+            "                                                              where (user_table.id in (select user_id from\n" +
+            "                                                                  (select user_id from user_role group by user_id having count(user_id) >= 2)\n" +
+            "                                                                      as dem_role)) and (status_user_id = 2 or status_user_id = 4) order by id)\n" +
+            "                                                                 as all_provider where full_name like :name)\n" +
+            "                                                  as find_by_name where age between :fromAge and :toAge))\n" +
+            "                                  as find_by_age where gender like :gender))\n" +
+            "                  as find_by_gender where (city like :city or city like :city2 )order by rent_count ",nativeQuery = true)
+    Iterable<User> searchAllViewAsc(@Param("fromAge") String fromAge,@Param("toAge") String toAge,
+                                     @Param("name") String name,@Param("city") String city,@Param("city2") String city2,
+                                     @Param("gender") String gender);
+
+    @Query(value = "select * from ((select * from ((select * from (select * from (select * from user_table\n" +
+            "                                                              where (user_table.id in (select user_id from\n" +
+            "                                                                  (select user_id from user_role group by user_id having count(user_id) >= 2)\n" +
+            "                                                                      as dem_role)) and (status_user_id = 2 or status_user_id = 4) order by id)\n" +
+            "                                                                 as all_provider where full_name like :name)\n" +
+            "                                                  as find_by_name where age between :fromAge and :toAge))\n" +
+            "                                  as find_by_age where gender like :gender))\n" +
+            "                  as find_by_gender where (city like :city )order by rent_count ",nativeQuery = true)
+    Iterable<User> searchAllCityViewAsc(@Param("fromAge") String fromAge,@Param("toAge") String toAge,
+                                         @Param("name") String name,@Param("city") String city,
+                                         @Param("gender") String gender);
 
     @Query(value = "select * from user_table where user_table.id in (select user_id from (select user_id from user_role\n" +
             "group by user_id\n" +

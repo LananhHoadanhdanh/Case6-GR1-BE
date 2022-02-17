@@ -9,6 +9,10 @@ import com.example.case6gr1be.service.impl.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -287,39 +291,52 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @GetMapping("/findAllBy2City/{city}/{city2}")
-    public ResponseEntity<Iterable<User>> findAllByCity(@PathVariable String city, @PathVariable String city2) {
-        Iterable<User> users = userService.listUserFor2Address(city, city2);
+    @GetMapping("/searchAllBy/{fromAge}/{toAge}")
+    public ResponseEntity<Iterable<User>> searchAllBy(@PathVariable String fromAge, @PathVariable String toAge, String name, String gender, String city, String city2) {
+        Iterable<User> users = userService.searchAllViewDesc(fromAge, toAge, name + '%', city + '%', city2 + '%', gender);
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @GetMapping("/findAllByCity/{city}")
-    public ResponseEntity<Iterable<User>> findAllBy2City(@PathVariable String city) {
-        Iterable<User> users = userService.listUserForAddress(city);
+    @GetMapping("/searchAllByCity/{fromAge}/{toAge}")
+    public ResponseEntity<Iterable<User>> searchAllByCity(@PathVariable String fromAge, @PathVariable String toAge, String name, String gender, String city) {
+        Iterable<User> users = userService.searchAllCityViewDesc(fromAge, toAge, name + '%', city + '%', gender);
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @GetMapping("/findAllByAgeAndName/{fromAge}/{toAge}")
-    public ResponseEntity<Iterable<User>> findAllByAgeAndName(@PathVariable String fromAge, @PathVariable String toAge, String name) {
-        Iterable<User> users = userService.findAllByAgeAndName(fromAge, toAge, '%' + name + '%');
+    @GetMapping("/searchAllByNotGender/{fromAge}/{toAge}")
+    public ResponseEntity<Iterable<User>> searchAllByNotGender(@PathVariable String fromAge, @PathVariable String toAge, String name, String gender, String city, String city2) {
+        Iterable<User> users = userService.searchAllViewDesc(fromAge, toAge, name + '%', city + '%', city2 + '%', gender + '%');
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @GetMapping("/findAllByAgeAndNameAndGender/{fromAge}/{toAge}/{gender}")
-    public ResponseEntity<Iterable<User>> findAllByAgeAndNameAndGender(@PathVariable String fromAge, @PathVariable String toAge, String name, @PathVariable String gender) {
-        Iterable<User> users = userService.findAllByAgeAndNameAndGender(fromAge, toAge, '%' + name + '%', gender);
+    @GetMapping("/searchAllByCityNotGender/{fromAge}/{toAge}")
+    public ResponseEntity<Iterable<User>> searchAllByCityNotGender(@PathVariable String fromAge, @PathVariable String toAge, String name, String gender, String city) {
+        Iterable<User> users = userService.searchAllCityViewDesc(fromAge, toAge, name + '%', city + '%', gender + '%');
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @GetMapping("/findAllByAgeAndNameAndGenderAndCity/{fromAge}/{toAge}/{gender}/{city}")
-    public ResponseEntity<Iterable<User>> findAllByAgeAndNameAndGenderAndCity(@PathVariable String fromAge, @PathVariable String toAge, String name, @PathVariable String gender, @PathVariable String city) {
-        Iterable<User> users = userService.findAllByAgeAndNameAndGenderAndCity(fromAge, toAge, '%' + name + '%', gender, '%' + city + '%');
+
+    @GetMapping("/searchAllByAsc/{fromAge}/{toAge}")
+    public ResponseEntity<Iterable<User>> searchAllByAsc(@PathVariable String fromAge, @PathVariable String toAge, String name, String gender, String city, String city2) {
+        Iterable<User> users = userService.searchAllViewAsc(fromAge, toAge, name + '%', city + '%', city2 + '%', gender);
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @GetMapping("/findAllByAgeAndNameAndGenderAnd2City/{fromAge}/{toAge}/{gender}/{city}/{city2}")
-    public ResponseEntity<Iterable<User>> findAllByAgeAndNameAndGenderAnd2City(@PathVariable String fromAge, @PathVariable String toAge, String name, @PathVariable String gender, @PathVariable String city, @PathVariable String city2) {
-        Iterable<User> users = userService.findAllByAgeAndNameAndGenderAnd2City(fromAge, toAge, '%' + name + '%', gender, '%' + city + '%', '%' + city2 + '%');
+    @GetMapping("/searchAllByCityAsc/{fromAge}/{toAge}")
+    public ResponseEntity<Iterable<User>> searchAllByCityAsc(@PathVariable String fromAge, @PathVariable String toAge, String name, String gender, String city) {
+        Iterable<User> users = userService.searchAllCityViewAsc(fromAge, toAge, name + '%', city + '%', gender);
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    @GetMapping("/searchAllByNotGenderAsc/{fromAge}/{toAge}")
+    public ResponseEntity<Iterable<User>> searchAllByNotGenderAsc(@PathVariable String fromAge, @PathVariable String toAge, String name, String gender, String city, String city2) {
+        Iterable<User> users = userService.searchAllViewAsc(fromAge, toAge, name + '%', city + '%', city2 + '%', gender + '%');
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    @GetMapping("/searchAllByCityNotGenderAsc/{fromAge}/{toAge}")
+    public ResponseEntity<Iterable<User>> searchAllByCityNotGenderAcs(@PathVariable String fromAge, @PathVariable String toAge, String name, String gender, String city) {
+        Iterable<User> users = userService.searchAllCityViewAsc(fromAge, toAge, name + '%', city + '%', gender + '%');
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
