@@ -102,7 +102,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "                                                                 as all_provider where full_name like :name)\n" +
             "                                                  as find_by_name where age between :fromAge and :toAge))\n" +
             "                                  as find_by_age where gender like :gender))\n" +
-            "                  as find_by_gender where (city like :city or city like :city2 )order by view,rent_count desc",nativeQuery = true)
+            "                  as find_by_gender where (city like :city or city like :city2 )order by rent_count desc",nativeQuery = true)
     Iterable<User> searchAllViewDesc(@Param("fromAge") String fromAge,@Param("toAge") String toAge,
                                      @Param("name") String name,@Param("city") String city,@Param("city2") String city2,
                                      @Param("gender") String gender);
@@ -114,7 +114,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "                                                                 as all_provider where full_name like :name)\n" +
             "                                                  as find_by_name where age between :fromAge and :toAge))\n" +
             "                                  as find_by_age where gender like :gender))\n" +
-            "                  as find_by_gender where (city like :city )order by view,rent_count desc",nativeQuery = true)
+            "                  as find_by_gender where (city like :city )order by rent_count desc",nativeQuery = true)
     Iterable<User> searchAllCityViewDesc(@Param("fromAge") String fromAge,@Param("toAge") String toAge,
                                      @Param("name") String name,@Param("city") String city,
                                      @Param("gender") String gender);
@@ -127,7 +127,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "                                                                 as all_provider where full_name like :name)\n" +
             "                                                  as find_by_name where age between :fromAge and :toAge))\n" +
             "                                  as find_by_age where gender like :gender))\n" +
-            "                  as find_by_gender where (city like :city or city like :city2 )order by view,rent_count ",nativeQuery = true)
+            "                  as find_by_gender where (city like :city or city like :city2 )order by rent_count ",nativeQuery = true)
     Iterable<User> searchAllViewAsc(@Param("fromAge") String fromAge,@Param("toAge") String toAge,
                                      @Param("name") String name,@Param("city") String city,@Param("city2") String city2,
                                      @Param("gender") String gender);
@@ -139,7 +139,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "                                                                 as all_provider where full_name like :name)\n" +
             "                                                  as find_by_name where age between :fromAge and :toAge))\n" +
             "                                  as find_by_age where gender like :gender))\n" +
-            "                  as find_by_gender where (city like :city )order by view,rent_count ",nativeQuery = true)
+            "                  as find_by_gender where (city like :city )order by rent_count ",nativeQuery = true)
     Iterable<User> searchAllCityViewAsc(@Param("fromAge") String fromAge,@Param("toAge") String toAge,
                                          @Param("name") String name,@Param("city") String city,
                                          @Param("gender") String gender);
