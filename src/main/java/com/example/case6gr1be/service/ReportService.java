@@ -6,6 +6,10 @@ import org.springframework.data.repository.query.Param;
 
 public interface ReportService extends GeneralService<Report> {
     void approveReport(Long id);
+
     Iterable<Report> findAllReportByProvider(Long id);
+
     Iterable<Report> findAllReportByRenter(Long id);
+
+    Iterable<Report> findAllByOrder(Long id);
 }

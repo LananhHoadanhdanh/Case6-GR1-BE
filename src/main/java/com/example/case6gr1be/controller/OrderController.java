@@ -36,7 +36,7 @@ public class OrderController {
 
     @GetMapping("/orders")
     public ResponseEntity<Iterable<Order>> findAll() {
-        return new ResponseEntity<>(orderService.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(orderService.getAllOrder(), HttpStatus.OK);
     }
 
     @PostMapping("/orders")

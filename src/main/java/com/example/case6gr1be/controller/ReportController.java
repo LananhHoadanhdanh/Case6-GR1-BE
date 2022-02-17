@@ -52,4 +52,9 @@ public class ReportController {
     public ResponseEntity<Iterable<Report>> allReportByProvider(@PathVariable Long id) {
         return new ResponseEntity<>(reportService.findAllReportByProvider(id), HttpStatus.OK);
     }
+
+    @GetMapping("orders/{id}/reports")
+    public ResponseEntity<Iterable<Report>> findAllByOrder(@PathVariable Long id) {
+        return new ResponseEntity<>(reportService.findAllByOrder(id), HttpStatus.OK);
+    }
 }

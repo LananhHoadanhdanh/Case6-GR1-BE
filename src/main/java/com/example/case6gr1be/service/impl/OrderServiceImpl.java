@@ -40,6 +40,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public Iterable<Order> getAllOrder() {
+        return orderRepository.findAllOrder();
+    }
+
+    @Override
     public Iterable<Order> getAllOrderByRenter(Long id) {
         return orderRepository.getAllOrderByRenter(id);
     }

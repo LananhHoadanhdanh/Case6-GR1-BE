@@ -12,6 +12,9 @@ public interface ReportRepository extends JpaRepository<Report, Long> {
     @Query(value = "UPDATE report SET status_id = 2 WHERE id = :id", nativeQuery = true)
     void approveReport(@Param("id") Long id);
 
+    @Query("select r from Report r where r.order.id = :id and r.status.id = 2 order by r.id desc")
+    Iterable<Report> findAllByOrder(@Param("id") Long id);
+
     @Query(value = "select report.id, report.content, report.order_id, report.status_id, report.date from report\n" +
             "join `order_table` o on o.id = report.order_id\n" +
             "join user_table u on u.id = provider_id where provider_id = :id and report.status_id = 2 order by report.id desc", nativeQuery = true)

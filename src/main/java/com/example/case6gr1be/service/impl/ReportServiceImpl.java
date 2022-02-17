@@ -43,4 +43,9 @@ public class ReportServiceImpl implements ReportService {
     public Iterable<Report> findAllReportByRenter(Long id) {
         return reportRepository.findAllReportByRenter(id);
     }
+
+    @Override
+    public Iterable<Report> findAllByOrder(Long id) {
+        return reportRepository.findAllByOrder(id);
+    }
 }
