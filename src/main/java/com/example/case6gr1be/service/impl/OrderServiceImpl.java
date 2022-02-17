@@ -35,6 +35,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public Iterable<Order> getAllCompletedOrder() {
+        return orderRepository.getAllCompletedOrder();
+    }
+
+    @Override
     public Iterable<Order> getAllOrderByRenter(Long id) {
         return orderRepository.getAllOrderByRenter(id);
     }

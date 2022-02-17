@@ -159,4 +159,11 @@ public class OrderController {
         return new ResponseEntity<>(orderOptional.get(), HttpStatus.NO_CONTENT);
 
     }
+
+    @GetMapping("/completedOrder")
+    public ResponseEntity<Iterable<Order>> getAllCompletedOrder(){
+        Iterable<Order> orders=orderService.getAllCompletedOrder();
+        return new ResponseEntity<>(orders,HttpStatus.OK);
+    }
+
 }
