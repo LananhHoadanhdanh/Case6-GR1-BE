@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
 
@@ -32,16 +33,19 @@ public class MessageController {
     public ResponseEntity<Iterable<Message>> findAll() {
         return new ResponseEntity<>(messageService.findAll(), HttpStatus.OK);
     }
+
     @GetMapping("/messRent/{id}")
     public ResponseEntity<Iterable<Message>> getAllMessByRenter(@PathVariable Long id) {
         return new ResponseEntity<>(messageService.getAllMessByRenter(id), HttpStatus.OK);
     }
+
     @GetMapping("/messOneRent/{id}")
     public ResponseEntity<Iterable<Message>> getMessByRenter(@PathVariable Long id) {
         return new ResponseEntity<>(messageService.getMessByRenter(id), HttpStatus.OK);
     }
+
     @GetMapping("/mess/{idPro}/{idRe}")
-    public ResponseEntity<Iterable<Message>> getMess(@PathVariable Long idPro,@PathVariable Long idRe) {
-        return new ResponseEntity<>(messageService.getMess(idPro,idRe), HttpStatus.OK);
+    public ResponseEntity<Iterable<Message>> getMess(@PathVariable Long idPro, @PathVariable Long idRe) {
+        return new ResponseEntity<>(messageService.getMess(idPro, idRe), HttpStatus.OK);
     }
 }

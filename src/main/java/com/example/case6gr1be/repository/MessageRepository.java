@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Repository
@@ -15,6 +16,6 @@ public interface MessageRepository  extends JpaRepository<Message,Long> {
     Iterable<Message> getAllMessByRenter(@Param("id") Long id);
     @Query("select o from Message o where o.idUs.id = :id group by o.idPro")
     Iterable<Message> getMessByRenter(@Param("id") Long id);
-    @Query("select o from Message o where o.idPro.id = :idPro and o.idUs.id = :idRe order by o.id asc ")
-    Iterable<Message> getMess(@Param("idPro") Long idPro,@Param("idRe") Long idRe);
+    @Query("select o from Message o where o.idPro.id = :idPro and o.idUs.id = :idRe or o.idPro.id = :idRe and o.idUs.id = :idPro order by o.id asc ")
+    Iterable<Message> getMess(@Param("idPro") Long idPro, @Param("idRe") Long idRe);
 }
