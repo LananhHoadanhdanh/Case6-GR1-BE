@@ -2,8 +2,10 @@ package com.example.case6gr1be.controller;
 
 import com.example.case6gr1be.model.Order;
 import com.example.case6gr1be.model.Report;
+import com.example.case6gr1be.model.ReportStatus;
 import com.example.case6gr1be.model.User;
 import com.example.case6gr1be.service.ReportService;
+import com.example.case6gr1be.service.ReportStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
@@ -19,6 +21,8 @@ import java.util.Optional;
 public class ReportController {
     @Autowired
     private ReportService reportService;
+    @Autowired
+    private ReportStatusService reportStatusService;
 
     @GetMapping("/reports")
     public ResponseEntity<Iterable<Report>> findAll() {
@@ -38,10 +42,13 @@ public class ReportController {
     }
 
     @PutMapping("/reports/{id}/approve")
-    public ResponseEntity<Long> approve(@PathVariable Long id) {
-
-        reportService.approveReport(id);
-        return new ResponseEntity<>(id, HttpStatus.OK);
+    public ResponseEntity<Report> approve(@PathVariable Long id) {
+        Report report = reportService.findById(id).get();
+        ReportStatus status = reportStatusService.findById(2L).get();
+        report.setStatus(status);
+        report.setId(id);
+        reportService.save(report);
+        return new ResponseEntity<>(report, HttpStatus.OK);
     }
 
     @GetMapping("users/{id}/reportsByRenter")
