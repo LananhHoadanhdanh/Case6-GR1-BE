@@ -39,6 +39,7 @@ public class ReportController {
 
     @PutMapping("/reports/{id}/approve")
     public ResponseEntity<Long> approve(@PathVariable Long id) {
+
         reportService.approveReport(id);
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
