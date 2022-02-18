@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ReportRepository extends JpaRepository<Report, Long> {
-    @Query(value = "UPDATE report SET status_id = 2 WHERE id = :id", nativeQuery = true)
+    @Query(value = "UPDATE report SET report.status_id = 2 WHERE report.id = :id", nativeQuery = true)
     void approveReport(@Param("id") Long id);
 
     @Query("select r from Report r where r.order.id = :id and r.status.id = 2 order by r.id desc")
