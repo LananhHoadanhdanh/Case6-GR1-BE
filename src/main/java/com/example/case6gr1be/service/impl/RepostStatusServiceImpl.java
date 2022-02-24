@@ -27,4 +27,6 @@ public class RepostStatusServiceImpl implements ReportStatusService {
     public void save(ReportStatus reportStatus) {
 
     }
+
+
 }
